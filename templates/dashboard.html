@@ -1,0 +1,17 @@
+
+<!-- Will prompt user to create a profile or login
+If a user is already logged in
+They will be redirected to their dashboard
+ -->
+
+{% extends 'base2.html' %}
+    {% block title %}Dashboard{% endblock %}
+{% block content %}
+
+
+<h1>Hi {{ user.fname }}</h1>
+The dashboard will have information about your projects, perhaps notify you of upcoming dates depending on the API that is used. Or a day-of "Hello [name]"
+
+Data visualization/progress report of the projects and where they stand, who viewed call sheets, how complete items are, etc.
+
+{% endblock %}

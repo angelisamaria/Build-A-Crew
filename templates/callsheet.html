@@ -1,0 +1,27 @@
+{% extends 'base2.html' %}
+    {% block title %}Callsheet{% endblock %}
+{% block content %}
+
+Callsheet info.<br>
+Need to figure out if I need to make a new table for callsheets.<br><br>
+
+Right now we have:<br>
+@app.route('/projects/< project_id >/callsheet')<br>
+def user_callsheet(project_id):<br><br>
+
+Might need to change the route to...<br>
+@app.route('/projects/< project_id >/< callsheet_id >')<br>
+def user_callsheet(project_id, callsheet_id):<br><br>
+
+
+Columns would be:<br>
+<ul>
+    <li>column_id</li>
+    <li>project_id</li>
+    <li>project name</li>
+    <li>callsheet title</li>
+    <li>crew_id</li>
+
+</ul><br>
+
+{% endblock %}

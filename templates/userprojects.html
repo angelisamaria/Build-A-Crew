@@ -1,0 +1,32 @@
+{% extends 'base2.html' %}
+    {% block title %}Your Projects{% endblock %}
+{% block content %}
+
+<h1>Projects</h1>
+<ul>
+    {% for project in uprojects %}
+          <li>
+              <a href='/projects/{{ project.project_id }}'>{{ project.title }} ({{ project.proj_desc }})</a>
+            </a>
+          </li>
+
+    {% endfor %}
+  </ul>
+
+<a href='/newproject'>[ + Project ]</a><br>
+-------------------------------
+<p>
+To do:<br>
+<ul>
+<li>Make projects interactive/dynamic as boxes</li>
+</ul>
+</p>
+
+
+
+
+
+
+
+
+{% endblock %}

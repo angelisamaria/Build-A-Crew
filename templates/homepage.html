@@ -1,0 +1,25 @@
+
+<!-- Will prompt user to create a profile or login
+If a user is already logged in
+They will be redirected to their dashboard
+ -->
+
+{% extends 'base.html' %}
+
+    {% block title %}Create a Profile{% endblock %}
+
+{% block content %} 
+
+    <img src='https://as2.ftcdn.net/jpg/01/78/57/95/500_F_178579554_3rnKhowuoMSi1wFjwxgjrm2iPDVCeN8X.jpg'>
+
+    <div>
+        <form method="get" action="/register">
+            <button type="submit">Create a Profile</button>
+        </form><br>
+
+        <form method="get" action="/login">
+            <button type="submit">Login</button>
+        </form><br>
+    </div>
+
+{% endblock %}

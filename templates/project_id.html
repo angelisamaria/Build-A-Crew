@@ -1,0 +1,27 @@
+{% extends 'base2.html' %}
+    {% block title %}{{ specific_project.title }}{% endblock %}
+{% block content %}
+
+<h1>{{ specific_project.title }}</h1>
+<ul>
+    <li>Start Date: {{ specific_project.sdate }}</li>
+    <li>End Date: {{ specific_project.edate }}</li>
+    <li>Location: {{ specific_project.location }}</li>
+
+    <li>Status:
+        {% if specific_project.status == True %} Open
+        {% else %} Closed
+        {% endif %}</li>
+
+    <li>Description: {{ specific_project.proj_desc }}</li>
+</ul><br>
+
+
+<div>
+<a href="#">Call Sheets</a><br>
+<a href="#">Files</a><br>
+<a href="#">Crew List</a><br>
+<a href="#">Edit Project</a><br>
+</div>
+
+{% endblock %}
