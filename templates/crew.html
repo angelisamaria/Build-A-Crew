@@ -1,0 +1,23 @@
+{% extends 'base2.html' %}
+    {% block title %}{{ specific_project.title }} Crew List{% endblock %}
+{% block content %}
+
+<h1>{{ specific_project.title }} Crew List</h1>
+<ul>
+    {% for project in user_projects %}
+          <li>
+            <a href='/crew/{{ project.project_id }}'>{{ project.title }} (Role Here)</a>
+          </li>
+
+    {% endfor %}
+  </ul>
+
+
+<div>
+<a href="#">Call Sheets</a><br>
+<a href="#">Files</a><br>
+<a href="/crew/{{ user_projects }}">Crew List</a><br>
+<a href="#">Edit Project</a><br>
+</div>
+
+{% endblock %}
