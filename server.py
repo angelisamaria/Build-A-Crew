@@ -1,11 +1,7 @@
-"""Movie Ratings."""
-
 from jinja2 import StrictUndefined
 
 from flask import (Flask, render_template, redirect, request, flash,
                    session)
-
-# from flask.ext.session import Session
 
 from flask_debugtoolbar import DebugToolbarExtension
 
@@ -13,7 +9,6 @@ from model import User, Project, connect_to_db, db
 
 
 app = Flask(__name__)
-
 
 # Required to use Flask sessions and the debug toolbar
 app.secret_key = "ABC"
@@ -23,7 +18,7 @@ app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
 def index():
-    """Homepage."""
+    """ Landing page."""
     
     if 'user' in session:
         return render_template("login.html")
@@ -86,6 +81,7 @@ def log_in():
 
             return redirect('/register')
 
+
 @app.route('/logout')
 def log_out():
 
@@ -93,6 +89,7 @@ def log_out():
     flash('You are logged out.')
 
     return redirect('/')
+
 
 @app.route('/dashboard')
 def user_dashboard():
@@ -107,30 +104,19 @@ def user_dashboard():
 def user_projects():
     """ User's projects. """
 
-
-    uprojects = Project.query.filter_by(user_id=session['user_id'])
+    user_projects = Project.query.filter_by(user_id=session['user_id'])
     
-    return render_template("userprojects.html", uprojects=uprojects)
-
+    return render_template("userprojects.html", user_projects=user_projects)
 
 
 @app.route('/projects', methods=['GET'])
 def show_movie_details(project_id):
-    """ Show release and more info link about a movie."""
+    """ List all projects for the user."""
 
     user_projects = Project.query.get(user_id)
 
-    user_name = User.query.get(fname)
+    return render_template('project_id.html', user_projects=user_projects)
 
-    session_user_id = session.get('user_id')
-
-    if session_user_id:
-        # get project info
-        project_info = Project.query.all()
-    else:
-        project_info = None
-
-    return render_template('project_id.html', user_projects=user_projects, user_name=user_name, user_id=user_id)
 
 @app.route('/newproject', methods = ['GET', 'POST'])
 def new_user_project():
@@ -159,39 +145,6 @@ def new_user_project():
 
         return redirect("/projects")
 
-# @app.route('/users/<int:user_id>')
-# def show_individual_user(user_id):
-#     """Show details about an individual user: their age, zipcode, 
-#     and a list of movies they rated with the ratings. """
-
-#     user = User.query.get(user_id)
-
-#     return render_template('user.html', user=user)
-
-
-
-@app.route('/user')
-def user():
-    """ User view their private profile. """
-    user = User.query.get(session['user_id'])
-
-    return render_template('user.html', user=user)
-
-@app.route('/contacts')
-def view_contacts():
-    """ User's Contacts."""
-    
-    return render_template("contacts.html")
-
-
-
-@app.route('/faq')
-def answer_questions():
-    """ Frequently Asked Questions."""
-    
-    return render_template("faq.html")
-
-
 
 @app.route('/projects/<project_id>')
 def view_project(project_id):
@@ -199,6 +152,28 @@ def view_project(project_id):
     specific_project = Project.query.get(project_id)
     
     return render_template("project_id.html", specific_project=specific_project)
+
+
+@app.route('/user')
+def user():
+    """ User view of their private profile. """
+
+    user = User.query.get(session['user_id'])
+
+    return render_template('user.html', user=user)
+
+@app.route('/contacts')
+def view_contacts():
+    """ User's contact list."""
+    
+    return render_template("contacts.html")
+
+
+@app.route('/faq')
+def answer_questions():
+    """ Frequently Asked Questions."""
+    
+    return render_template("faq.html")
 
 
 if __name__ == "__main__":

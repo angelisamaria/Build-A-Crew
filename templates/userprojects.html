@@ -4,7 +4,7 @@
 
 <h1>Projects</h1>
 <ul>
-    {% for project in uprojects %}
+    {% for project in user_projects %}
           <li>
               <a href='/projects/{{ project.project_id }}'>{{ project.title }} ({{ project.proj_desc }})</a>
             </a>
@@ -21,12 +21,5 @@ To do:<br>
 <li>Make projects interactive/dynamic as boxes</li>
 </ul>
 </p>
-
-
-
-
-
-
-
 
 {% endblock %}
