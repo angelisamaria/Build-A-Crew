@@ -20,8 +20,8 @@ app.jinja_env.undefined = StrictUndefined
 def index():
     """ Landing page."""
     
-    if 'user' in session:
-        return render_template("login.html")
+    if 'user_id' in session:
+        return render_template("dashboard.html")
     else:
         return render_template("homepage.html")
 
@@ -39,15 +39,21 @@ def registration_form():
         lname = request.form.get("lname")
         location = request.form.get("location")
         portfolio = request.form.get("portfolio")
+        role = request.form.get("role")
         new_user = User(email=user_email, 
                             pw=pw,
                             fname=fname,
                             lname=lname,
                             location=location,
-                            portfolio=portfolio)
+                            portfolio=portfolio,
+                            role=role)
                             
         db.session.add(new_user)
         db.session.commit()
+
+        # session['user_id'] = request.form['user_id']
+        session['user_id'] = new_user.user_id
+
         return redirect(f'/dashboard')
 
 
@@ -108,14 +114,12 @@ def user_projects():
     
     return render_template("userprojects.html", user_projects=user_projects)
 
-
-@app.route('/projects', methods=['GET'])
-def show_movie_details(project_id):
-    """ List all projects for the user."""
-
-    user_projects = Project.query.get(user_id)
-
-    return render_template('project_id.html', user_projects=user_projects)
+@app.route('/projects/<project_id>')
+def view_project(project_id):
+    """ Frequently Asked Questions."""
+    specific_project = Project.query.get(project_id)
+    
+    return render_template("project_id.html", specific_project=specific_project)
 
 
 @app.route('/newproject', methods = ['GET', 'POST'])
@@ -146,12 +150,53 @@ def new_user_project():
         return redirect("/projects")
 
 
-@app.route('/projects/<project_id>')
-def view_project(project_id):
-    """ Frequently Asked Questions."""
-    specific_project = Project.query.get(project_id)
+
+
+# @app.route('/edit-profile', methods = ['GET', 'POST'])
+# def edit_profile():
+#     """Allow users to register, only their email and pw is required. """
     
-    return render_template("project_id.html", specific_project=specific_project)
+#     if request.method == 'GET':
+#         return render_template("createprofile.html")
+
+#     else:
+#         user_email = request.form.get("email")
+#         pw = request.form.get("pw")
+#         fname = request.form.get("fname")
+#         lname = request.form.get("lname")
+#         location = request.form.get("location")
+#         portfolio = request.form.get("portfolio")
+#         role = request.form.get("role")
+#         new_user = User(email=user_email, 
+#                             pw=pw,
+#                             fname=fname,
+#                             lname=lname,
+#                             location=location,
+#                             portfolio=portfolio,
+#                             role=role)
+                            
+#         db.session.add(new_user)
+#         db.session.commit()
+#         return redirect(f'/dashboard')
+
+
+# @app.route('/edit-profile', methods=['GET', 'POST'])
+# def edit():
+#     """ User edit their profile. """
+# qry = db_session.query(Album).filter(
+# Album.id==id)
+# album = qry.first()
+
+# if album:
+# form = AlbumForm(formdata=request.form, obj=album)
+# if request.method == 'POST' and form.validate():
+# # save edits
+# save_changes(album, form)
+# flash('Album updated successfully!')
+# return redirect('/')
+# return render_template('edit_album.html', form=form)
+# else:
+# return 'Error loading #{id}'.format(id=id)
 
 
 @app.route('/user')
@@ -161,6 +206,30 @@ def user():
     user = User.query.get(session['user_id'])
 
     return render_template('user.html', user=user)
+
+
+# @app.route('/crew/<project_id>')
+# def project_crew(project_id):
+#     """ Crew list for a specific project."""
+
+#     user = User.query.get(session['user_id'])
+#     specific_project = Project.query.get(project_id)
+#     user_projects = Project.query.get(user_id)
+
+    
+#     return render_template("crew.html", user=user, specific_project=specific_project)
+
+
+
+
+@app.route('/crew/<project_id>')
+def project_crew(project_id):
+    """ Frequently Asked Questions."""
+    specific_project = Project.query.get(project_id)
+    user_projects = Project.query.filter_by(user_id=session['user_id'])
+    
+    return render_template("crew.html", specific_project=specific_project, user_projects=user_projects)
+
 
 @app.route('/contacts')
 def view_contacts():

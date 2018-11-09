@@ -20,6 +20,7 @@ class User(db.Model):
     lname = db.Column(db.String(64), nullable=True)
     location = db.Column(db.String(64), nullable=True)
     portfolio = db.Column(db.String(64), nullable=True)
+    role = db.Column(db.String(64), nullable=True)
  
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -30,7 +31,8 @@ class User(db.Model):
                         fname={self.fname}
                         lname={self.lname}
                         location={self.location}
-                        portfolio={self.portfolio}>"""
+                        portfolio={self.portfolio}
+                        role={self.role}>"""
 
 
 class Project(db.Model):
