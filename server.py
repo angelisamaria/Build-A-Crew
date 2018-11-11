@@ -7,6 +7,9 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, Project, connect_to_db, db
 
+import time
+from datetime import date
+
 
 app = Flask(__name__)
 
@@ -20,8 +23,10 @@ app.jinja_env.undefined = StrictUndefined
 def index():
     """ Landing page."""
     
+
     if 'user_id' in session:
-        return render_template("dashboard.html")
+        user = User.query.get(session['user_id'])
+        return render_template("dashboard.html", user=user)
     else:
         return render_template("homepage.html")
 
@@ -39,14 +44,12 @@ def registration_form():
         lname = request.form.get("lname")
         location = request.form.get("location")
         portfolio = request.form.get("portfolio")
-        role = request.form.get("role")
         new_user = User(email=user_email, 
                             pw=pw,
                             fname=fname,
                             lname=lname,
                             location=location,
-                            portfolio=portfolio,
-                            role=role)
+                            portfolio=portfolio)
                             
         db.session.add(new_user)
         db.session.commit()
@@ -102,8 +105,9 @@ def user_dashboard():
     """User's Dashboard Page."""
 
     user = User.query.get(session['user_id'])
+    user_projects = Project.query.filter_by(user_id=session['user_id'])
     
-    return render_template("dashboard.html", user=user)
+    return render_template("dashboard.html", user=user, user_projects=user_projects)
 
 
 @app.route('/projects')
@@ -118,6 +122,7 @@ def user_projects():
 def view_project(project_id):
     """ Frequently Asked Questions."""
     specific_project = Project.query.get(project_id)
+
     
     return render_template("project_id.html", specific_project=specific_project)
 
@@ -203,24 +208,19 @@ def new_user_project():
 def user():
     """ User view of their private profile. """
 
-    user = User.query.get(session['user_id'])
+    if 'user_id' in session:
+        user = User.query.get(session['user_id'])
+        return render_template("user.html", user=user)
+    else:
+        return render_template("homepage.html")
 
-    return render_template('user.html', user=user)
+@app.route('/user/<user_id>')
+def profile(user_id):
+    """ User view of their public profiles. """
 
-
-# @app.route('/crew/<project_id>')
-# def project_crew(project_id):
-#     """ Crew list for a specific project."""
-
-#     user = User.query.get(session['user_id'])
-#     specific_project = Project.query.get(project_id)
-#     user_projects = Project.query.get(user_id)
-
+    specific_user = User.query.get(user_id)
     
-#     return render_template("crew.html", user=user, specific_project=specific_project)
-
-
-
+    return render_template("publicprofile.html", specific_user=specific_user)
 
 @app.route('/crew/<project_id>')
 def project_crew(project_id):
@@ -234,8 +234,10 @@ def project_crew(project_id):
 @app.route('/contacts')
 def view_contacts():
     """ User's contact list."""
+
+    users = User.query.all()
     
-    return render_template("contacts.html")
+    return render_template("contacts.html", users=users)
 
 
 @app.route('/faq')

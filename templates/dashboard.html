@@ -7,11 +7,48 @@ They will be redirected to their dashboard
 {% extends 'base2.html' %}
     {% block title %}Dashboard{% endblock %}
 {% block content %}
-
-
 <h1>Hi {{ user.fname }}</h1>
-The dashboard will have information about your projects, perhaps notify you of upcoming dates depending on the API that is used. Or a day-of "Hello [name]"
+<!-- http://www.chartjs.org/docs/latest/charts/doughnut.html -->
+<!-- Load chart.js cdn -->
+<h2>Project Progress</h2>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<div id="canvas-holder" style="width:50%">
+  <canvas id="myChart" />
+</div>
 
-Data visualization/progress report of the projects and where they stand, who viewed call sheets, how complete items are, etc.
+<script>
+const ctx = document.getElementById("myChart");
+const myChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+    datasets: [{
+      data: [12, 19, 3, 5, 2, 3],
+      backgroundColor: [
+        "#F7464A",
+        "#46BFBD",
+        "#FDB45C",
+        "#949FB1",
+        "#4D5360",
+      ],
+      label: 'Projects'
+    }],
+    labels: [
+        {% for project in user_projects %}
+               "{{ project.title }}",
+              {% endfor %}
+    ]
+  },
+
+
+    }
+);
+
+
+
+
+
+
+</script>
 
 {% endblock %}

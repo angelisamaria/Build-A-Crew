@@ -2,22 +2,38 @@
     {% block title %}{{ specific_project.title }} Crew List{% endblock %}
 {% block content %}
 
-<h1>{{ specific_project.title }} Crew List</h1>
+<h1><i>{{ specific_project.title }}</i> Crew List</h1>
 <ul>
     {% for project in user_projects %}
           <li>
             <a href='/crew/{{ project.project_id }}'>{{ project.title }} (Role Here)</a>
           </li>
-
     {% endfor %}
+    <li>user.name (Role)</li><br>
+    [ + Crew Member (form)]
+
   </ul>
 
 
+Role: <select name="role">
+<option value="Director">Director</option>
+<option value="Producer">Producer</option>
+<option value="Director of Photography">Director of Photography</option>
+<option value="1st-AC">1st AC</option>
+<option value="2nd-AC">2nd AC</option>
+<option value="Gaffer">Gaffer</option>
+<option value="Best-Boy">Best Boy</option>
+<option value="Production-Assistant">Production Assistant</option>
+<option value="Client-Service">Client Service</option></select>
+
+
 <div>
+<!-- <a href='/projects/{{ specific_project.project_id }}'>Back to {{ specific_project.title }} Overview</a><br> -->
 <a href="#">Call Sheets</a><br>
 <a href="#">Files</a><br>
-<a href="/crew/{{ user_projects }}">Crew List</a><br>
+<a href="/crew/{{ specific_project.project_id }}">Crew List</a><br>
 <a href="#">Edit Project</a><br>
+<a href='/projects/{{ specific_project.project_id }}'>Back to {{ specific_project.title }}</a>
 </div>
 
 {% endblock %}

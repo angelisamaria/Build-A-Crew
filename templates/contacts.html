@@ -2,12 +2,26 @@
     {% block title %}Contacts{% endblock %}
 {% block content %}
 
-Search bar to find contacts<br><br>
-add to contacts<br>
+<button type="submit">Search Contacts</button>
+<button type="submit">Add to Contacts</button>
+<button type="submit">Add to Project</button>
+<br><br>
 
-<br>
-later<br>
-add to group
+<h3>Springfield Crew</h3>
+{% for user in users %}
+    <li><a href='/user/{{ user.user_id }}'> {{ user.fname }} from {{ user.location }}</a></li>
+{% endfor %}
+
+<h3>School Crew</h3>
+{% for user in users %}
+    <li><a href='/user/{{ user.user_id }}'> {{ user.fname }} from {{ user.location }}</a></li>
+{% endfor %}
+    <li><a href='#'>Millhouse Van Houten</a></li>
+
+
+<h3>Add Contacts</h3>
+    <li><a href='#'>Marge Simpson</a></li>
+    <li><a href='#'>Homer Simpson</a></li>
 
 
 {% endblock %}

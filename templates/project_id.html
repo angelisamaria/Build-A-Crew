@@ -13,15 +13,15 @@
         {% else %} Closed
         {% endif %}</li>
 
-    <li>Description: {{ specific_project.proj_desc }}</li>
+    <li>Logline: {{ specific_project.proj_desc }}</li>
 </ul><br>
-
 
 <div>
 <a href="#">Call Sheets</a><br>
 <a href="#">Files</a><br>
 <a href="/crew/{{ specific_project.project_id }}">Crew List</a><br>
 <a href="#">Edit Project</a><br>
+<a href='/projects'>Back to Projects</a>
 </div>
 
 {% endblock %}
