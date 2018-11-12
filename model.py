@@ -58,6 +58,25 @@ class Project(db.Model):
                         status={self.status}
                         proj_desc={self.proj_desc}>"""
 
+class Crew(db.Model):
+    """User Information."""
+
+    __tablename__ = "crews"
+
+    crew_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    project_id = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    dept = db.relationship('User')
+    role = db.Column(db.String(64), nullable=True)
+    user = db.relationship('User')
+ 
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return f"""<Crew crew_id={self.user_id} 
+                        project_id={self.project_id}
+                        user_id={self.user_id}
+                        role={self.role}>"""
 
 
 ##############################################################################

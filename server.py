@@ -5,7 +5,7 @@ from flask import (Flask, render_template, redirect, request, flash,
 
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import User, Project, connect_to_db, db
+from model import User, Project, Crew, connect_to_db, db
 
 import time
 from datetime import date
@@ -106,8 +106,9 @@ def user_dashboard():
 
     user = User.query.get(session['user_id'])
     user_projects = Project.query.filter_by(user_id=session['user_id'])
+    numprojects = Project.query.filter_by(user_id=session['user_id']).count()
     
-    return render_template("dashboard.html", user=user, user_projects=user_projects)
+    return render_template("dashboard.html", user=user, user_projects=user_projects, numprojects=numprojects)
 
 
 @app.route('/projects')
@@ -222,13 +223,27 @@ def profile(user_id):
     
     return render_template("publicprofile.html", specific_user=specific_user)
 
-@app.route('/crew/<project_id>')
+@app.route('/crew/<project_id>', methods=['GET', 'POST'])
 def project_crew(project_id):
     """ Frequently Asked Questions."""
+
+    if request.method == 'POST':
+        project_id = project_id
+        user_id = request.form.get("name")
+        role = request.form.get("role")
+        crewMember = Crew(project_id=project_id, 
+                            user_id=user_id,
+                            role=role)
+        db.session.add(crewMember)
+        db.session.commit()
+
     specific_project = Project.query.get(project_id)
     user_projects = Project.query.filter_by(user_id=session['user_id'])
+    users = User.query.all()
+
+    crewmembers= Crew.query.filter_by(project_id=project_id)
     
-    return render_template("crew.html", specific_project=specific_project, user_projects=user_projects)
+    return render_template("crew.html", specific_project=specific_project, user_projects=user_projects, users=users, crewmembers=crewmembers)
 
 
 @app.route('/contacts')
