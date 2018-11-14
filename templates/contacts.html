@@ -6,22 +6,10 @@
 <button type="submit">Add to Contacts</button>
 <button type="submit">Add to Project</button>
 <br><br>
-
-<h3>Springfield Crew</h3>
-{% for user in users %}
-    <li><a href='/user/{{ user.user_id }}'> {{ user.fname }} from {{ user.location }}</a></li>
-{% endfor %}
-
-<h3>School Crew</h3>
+<h3>All Users</h3>
 {% for user in users %}
     <li><a href='/user/{{ user.user_id }}'> {{ user.fname }} from {{ user.location }}</a></li>
 {% endfor %}
     <li><a href='#'>Millhouse Van Houten</a></li>
-
-
-<h3>Add Contacts</h3>
-    <li><a href='#'>Marge Simpson</a></li>
-    <li><a href='#'>Homer Simpson</a></li>
-
 
 {% endblock %}

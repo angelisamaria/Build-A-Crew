@@ -45,7 +45,7 @@ class Project(db.Model):
     location = db.Column(db.String(64), nullable=True)
     status = db.Column(db.Boolean, default=True, nullable=False)
     proj_desc = db.Column(db.String(300), nullable=True)
-    user_id = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer, default=0, nullable=False)
     
     def __repr__(self):
         """Provide helpful representation when printed."""

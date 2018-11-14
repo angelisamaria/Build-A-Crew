@@ -23,7 +23,6 @@ app.jinja_env.undefined = StrictUndefined
 def index():
     """ Landing page."""
     
-
     if 'user_id' in session:
         user = User.query.get(session['user_id'])
         return render_template("dashboard.html", user=user)
@@ -35,7 +34,7 @@ def registration_form():
     """Allow users to register, only their email and pw is required. """
     
     if request.method == 'GET':
-        return render_template("createprofile.html")
+        return render_template("register.html")
 
     else:
         user_email = request.form.get("email")
@@ -57,7 +56,7 @@ def registration_form():
         # session['user_id'] = request.form['user_id']
         session['user_id'] = new_user.user_id
 
-        return redirect(f'/dashboard')
+        return redirect('/dashboard')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -65,7 +64,6 @@ def log_in():
 
     if request.method == 'GET':
         return render_template("login.html")
-
     else:
         email = request.form.get("email")
         pw = request.form.get("pw")
@@ -75,19 +73,11 @@ def log_in():
             #password validation
             user = User.query.filter(User.email == email).first()
             if user.pw == pw:
-                flash('You are logged in.')
                 session['user_id'] = user.user_id
-
                 return redirect(f'dashboard')
-
-            else: #password does not match
-                flash('Password does not match. Please try again.')
-
+            else: 
                 return render_template("login.html")
-
-        else: #if email is not in the database
-            flash(f'No account with the email {email} exists. Please register.')
-
+        else:
             return redirect('/register')
 
 
@@ -121,7 +111,7 @@ def user_projects():
 
 @app.route('/projects/<project_id>')
 def view_project(project_id):
-    """ Frequently Asked Questions."""
+    """ View projet details."""
     specific_project = Project.query.get(project_id)
 
     
@@ -156,64 +146,25 @@ def new_user_project():
         return redirect("/projects")
 
 
-
-
-# @app.route('/edit-profile', methods = ['GET', 'POST'])
-# def edit_profile():
-#     """Allow users to register, only their email and pw is required. """
-    
-#     if request.method == 'GET':
-#         return render_template("createprofile.html")
-
-#     else:
-#         user_email = request.form.get("email")
-#         pw = request.form.get("pw")
-#         fname = request.form.get("fname")
-#         lname = request.form.get("lname")
-#         location = request.form.get("location")
-#         portfolio = request.form.get("portfolio")
-#         role = request.form.get("role")
-#         new_user = User(email=user_email, 
-#                             pw=pw,
-#                             fname=fname,
-#                             lname=lname,
-#                             location=location,
-#                             portfolio=portfolio,
-#                             role=role)
-                            
-#         db.session.add(new_user)
-#         db.session.commit()
-#         return redirect(f'/dashboard')
-
-
-# @app.route('/edit-profile', methods=['GET', 'POST'])
-# def edit():
-#     """ User edit their profile. """
-# qry = db_session.query(Album).filter(
-# Album.id==id)
-# album = qry.first()
-
-# if album:
-# form = AlbumForm(formdata=request.form, obj=album)
-# if request.method == 'POST' and form.validate():
-# # save edits
-# save_changes(album, form)
-# flash('Album updated successfully!')
-# return redirect('/')
-# return render_template('edit_album.html', form=form)
-# else:
-# return 'Error loading #{id}'.format(id=id)
-
-
-@app.route('/user')
+@app.route('/user', methods=['GET', 'POST'])
 def user():
     """ User view of their private profile. """
 
     if 'user_id' in session:
         user = User.query.get(session['user_id'])
+        if request.method == 'POST':
+            user.fname = request.form['fname']
+            user.lname = request.form['lname']
+            user.email  = request.form['email']
+            user.pw   = request.form['pw']
+
+            db.session.commit()
+
         return render_template("user.html", user=user)
+   
     else:
         return render_template("homepage.html")
+
 
 @app.route('/user/<user_id>')
 def profile(user_id):
@@ -241,6 +192,7 @@ def project_crew(project_id):
     user_projects = Project.query.filter_by(user_id=session['user_id'])
     users = User.query.all()
 
+
     crewmembers= Crew.query.filter_by(project_id=project_id)
     
     return render_template("crew.html", specific_project=specific_project, user_projects=user_projects, users=users, crewmembers=crewmembers)
@@ -264,17 +216,12 @@ def answer_questions():
 
 if __name__ == "__main__":
 
-
-    # We have to set debug=True here, since it has to be True at the
-    # point that we invoke the DebugToolbarExtension
     app.debug = True
-    # make sure templates, etc. are not cached in debug mode
     app.jinja_env.auto_reload = app.debug
 
     connect_to_db(app)
     db.create_all()
 
-    # Use the DebugToolbar
     DebugToolbarExtension(app)
 
     app.run(host="0.0.0.0")

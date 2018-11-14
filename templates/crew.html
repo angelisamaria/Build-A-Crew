@@ -5,11 +5,9 @@
 <h1><i>{{ specific_project.title }}</i> Crew List</h1>
 <ul>
     {% for crewmember in crewmembers %}
-        {% for user in users %}
           <li>
-            <a href='/user/{{ user.user_id }}'>{{ user.fname }} ({{ crewmember.role }})</a>
+            <a href='/user/{{ crewmember.user_id }}'>{{ crewmember.user_id }} ({{ crewmember.role }})</a>
           </li>
-          {% endfor %}
     {% endfor %}
   </ul>
 
@@ -18,7 +16,7 @@
         Name: 
         <select name="name">
             {% for user in users %}
-                <option value="{{ user.user_id }}">{{  user.fname  }}</option>
+                <option value="{{ user.user_id }}">{{  user.fname  }} {{  user.lname  }}</option>
             {% endfor %}
         </select>
         Role: 

@@ -2,19 +2,9 @@
     {% block title %}Log In{% endblock %}
 {% block content %}
 
-<div>
-
-<form action="/login" method="POST">
-    Email: <input type="text" name="email"><br>
-    Password: <input type="password" name="pw"><br>
-    <input type="submit" value="Log in">
-</form>
-
-
-Don't have an account?<br>
-<form method="GET" action="/register">
-            <button type="submit">Create a Profile</button>
-        </form><br>
-</div>
+    <script src="static/scripts/jsx/login.jsx" type="text/jsx"></script>
+    <script type="text/jsx">
+        ReactDOM.render(<Login />, document.querySelector('div#root'));
+    </script>
 
 {% endblock %}

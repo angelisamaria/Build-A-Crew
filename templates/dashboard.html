@@ -7,11 +7,11 @@ They will be redirected to their dashboard
 {% extends 'base2.html' %}
     {% block title %}Dashboard{% endblock %}
 {% block content %}
-<h1>Hi {{ user.fname }}</h1>
+<h1>Hi {{ user.fname }}, here's your project progress:</h1>
 <!-- http://www.chartjs.org/docs/latest/charts/doughnut.html -->
 <!-- Load chart.js cdn -->
-<h2>Project Progress</h2>
-Number of projects: {{ numprojects }}
+Number of projects<br>
+<h3>{{ numprojects }}</h3>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.bundle.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <div id="canvas-holder" style="width:50%">
@@ -32,7 +32,7 @@ const myChart = new Chart(ctx, {
         "#949FB1",
         "#4D5360",
       ],
-      label: 'Projects'
+      label: 'Project'
     }],
     labels: [
         {% for project in user_projects %}
@@ -40,15 +40,8 @@ const myChart = new Chart(ctx, {
               {% endfor %}
     ]
   },
-
-
-    }
+}
 );
-
-
-
-
-
 
 </script>
 
