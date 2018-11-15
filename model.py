@@ -66,9 +66,9 @@ class Crew(db.Model):
     crew_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     project_id = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    dept = db.relationship('User')
     role = db.Column(db.String(64), nullable=True)
-    user = db.relationship('User')
+
+    users = db.relationship('User')
  
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -77,6 +77,14 @@ class Crew(db.Model):
                         project_id={self.project_id}
                         user_id={self.user_id}
                         role={self.role}>"""
+
+
+# join table 
+
+# class Roles():
+#     user_id = db.Column - fk
+#     crew_id = db.Column - fk
+#     role - db.Column - str
 
 
 ##############################################################################

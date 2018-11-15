@@ -34,7 +34,7 @@ def registration_form():
     """Allow users to register, only their email and pw is required. """
     
     if request.method == 'GET':
-        return render_template("register.html")
+        return render_template("/users/register.html")
 
     else:
         user_email = request.form.get("email")
@@ -63,7 +63,7 @@ def registration_form():
 def log_in():
 
     if request.method == 'GET':
-        return render_template("login.html")
+        return render_template("/users/login.html")
     else:
         email = request.form.get("email")
         pw = request.form.get("pw")
@@ -76,7 +76,7 @@ def log_in():
                 session['user_id'] = user.user_id
                 return redirect(f'dashboard')
             else: 
-                return render_template("login.html")
+                return render_template("/users/login.html")
         else:
             return redirect('/register')
 
@@ -98,7 +98,7 @@ def user_dashboard():
     user_projects = Project.query.filter_by(user_id=session['user_id'])
     numprojects = Project.query.filter_by(user_id=session['user_id']).count()
     
-    return render_template("dashboard.html", user=user, user_projects=user_projects, numprojects=numprojects)
+    return render_template("/projects/dashboard.html", user=user, user_projects=user_projects, numprojects=numprojects)
 
 
 @app.route('/projects')
@@ -107,7 +107,7 @@ def user_projects():
 
     user_projects = Project.query.filter_by(user_id=session['user_id'])
     
-    return render_template("userprojects.html", user_projects=user_projects)
+    return render_template("/projects/userprojects.html", user_projects=user_projects)
 
 @app.route('/projects/<project_id>')
 def view_project(project_id):
@@ -115,7 +115,7 @@ def view_project(project_id):
     specific_project = Project.query.get(project_id)
 
     
-    return render_template("project_id.html", specific_project=specific_project)
+    return render_template("/projects/project_id.html", specific_project=specific_project)
 
 
 @app.route('/newproject', methods = ['GET', 'POST'])
@@ -125,7 +125,7 @@ def new_user_project():
     user_id = session['user_id']
 
     if request.method == 'GET':
-        return render_template("newproject.html", user_id=user_id)
+        return render_template("/projects/newproject.html", user_id=user_id)
 
     else:
         title = request.form.get("title")
@@ -160,7 +160,7 @@ def user():
 
             db.session.commit()
 
-        return render_template("user.html", user=user)
+        return render_template("/users/user.html", user=user)
    
     else:
         return render_template("homepage.html")
@@ -172,7 +172,7 @@ def profile(user_id):
 
     specific_user = User.query.get(user_id)
     
-    return render_template("publicprofile.html", specific_user=specific_user)
+    return render_template("/users/publicprofile.html", specific_user=specific_user)
 
 @app.route('/crew/<project_id>', methods=['GET', 'POST'])
 def project_crew(project_id):
@@ -187,15 +187,14 @@ def project_crew(project_id):
                             role=role)
         db.session.add(crewMember)
         db.session.commit()
+        users = User.query.all()
 
     specific_project = Project.query.get(project_id)
     user_projects = Project.query.filter_by(user_id=session['user_id'])
+    crew = Crew.query.filter_by(project_id=project_id)
     users = User.query.all()
-
-
-    crewmembers= Crew.query.filter_by(project_id=project_id)
     
-    return render_template("crew.html", specific_project=specific_project, user_projects=user_projects, users=users, crewmembers=crewmembers)
+    return render_template("/crews/crew.html", specific_project=specific_project, user_projects=user_projects, crew=crew, users=users)
 
 
 @app.route('/contacts')
@@ -204,7 +203,7 @@ def view_contacts():
 
     users = User.query.all()
     
-    return render_template("contacts.html", users=users)
+    return render_template("users/contacts.html", users=users)
 
 
 @app.route('/faq')
