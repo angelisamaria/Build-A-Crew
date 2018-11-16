@@ -39,13 +39,14 @@ class Project(db.Model):
     __tablename__ = "projects"
 
     project_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    title = db.Column(db.String(64), nullable=True)
+    title = db.Column(db.String(120), nullable=True)
     sdate = db.Column(db.String(64), nullable=True)
     edate = db.Column(db.String(64), nullable=True) # change to datetime later
     location = db.Column(db.String(64), nullable=True)
     status = db.Column(db.Boolean, default=True, nullable=False)
     proj_desc = db.Column(db.String(300), nullable=True)
     user_id = db.Column(db.Integer, default=0, nullable=False)
+    proj_img = db.Column(db.String(300), nullable=True)
     
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -56,7 +57,8 @@ class Project(db.Model):
                         end date={self.edate}
                         location={self.location}
                         status={self.status}
-                        proj_desc={self.proj_desc}>"""
+                        proj_desc={self.proj_desc}
+                        proj_img={self.proj_img}>"""
 
 class Crew(db.Model):
     """User Information."""

@@ -4,6 +4,7 @@ If a user is already logged in
 They will be redirected to their dashboard
  -->
 
+
 {% extends '/base/base.html' %}
 
     {% block title %}Build a Crew{% endblock %}
@@ -17,15 +18,7 @@ They will be redirected to their dashboard
         <form method="get" action="/register">
             <button type="submit">Create a Profile</button>
         </form><br>
-
-        <form method="get" action="/login">
-            <button type="submit">Login</button>
-        </form><br>
     </div>
-
-
-
-
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Login</button>
 

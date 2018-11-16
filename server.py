@@ -134,12 +134,14 @@ def new_user_project():
         location = request.form.get("location")
         proj_desc = request.form.get("proj_desc")
         user_id = request.form.get("user_id")
+        proj_img = request.form.get("proj_img")
         new_proj = Project(title=title, 
                             sdate=sdate,
                             edate=edate,
                             location=location,
                             proj_desc=proj_desc,
-                            user_id=user_id)
+                            user_id=user_id,
+                            proj_img=proj_img)
         db.session.add(new_proj)
         db.session.commit()
 
@@ -195,6 +197,16 @@ def project_crew(project_id):
     users = User.query.all()
     
     return render_template("/crews/crew.html", specific_project=specific_project, user_projects=user_projects, crew=crew, users=users)
+
+
+@app.route('/callsheet/<project_id>')
+def view_callsheet(project_id):
+    """ User's contact list."""
+    
+    specific_project = Project.query.get(project_id)
+    user_projects = Project.query.filter_by(user_id=session['user_id'])
+
+    return render_template("projects/callsheet.html", specific_project=specific_project)
 
 
 @app.route('/contacts')
