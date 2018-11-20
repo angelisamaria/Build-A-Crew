@@ -69,7 +69,6 @@ class Crew(db.Model):
     project_id = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     role = db.Column(db.String(64), nullable=True)
-
     users = db.relationship('User')
  
     def __repr__(self):
@@ -88,6 +87,28 @@ class Crew(db.Model):
 #     crew_id = db.Column - fk
 #     role - db.Column - str
 
+class Callsheet(db.Model):
+    """ User Callsheets."""
+
+    __tablename__ = "callsheets"
+
+    callsheet_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    day_number = db.Column(db.Integer, nullable=False)
+    project_id = db.Column(db.Integer, db.ForeignKey('projects.project_id'))
+    shoot_date = db.Column(db.String(64))
+    lunch_time = db.Column(db.String(64))
+    lunch_location = db.Column(db.String(64))
+
+    projects = db.relationship('Project')
+
+    def __repr__(self):
+
+        return f"""<Callsheet callsheet_id={self.callsheet_id}
+                        day_number={self.day_number}
+                        project_id={self.project_id}
+                        shoot_date = {self.shoot_date}
+                        lunch_time={self.lunch_time}
+                        lunch_location={self.lunch_location}>"""
 
 ##############################################################################
 # Helper functions

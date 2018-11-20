@@ -5,7 +5,7 @@ from flask import (Flask, render_template, redirect, request, flash,
 
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import User, Project, Crew, connect_to_db, db
+from model import User, Project, Crew, Callsheet, connect_to_db, db
 
 import time
 from datetime import date
@@ -25,7 +25,7 @@ def index():
     
     if 'user_id' in session:
         user = User.query.get(session['user_id'])
-        return render_template("dashboard.html", user=user)
+        return render_template("projects/dashboard.html", user=user)
     else:
         return render_template("homepage.html")
 
@@ -199,14 +199,42 @@ def project_crew(project_id):
     return render_template("/crews/crew.html", specific_project=specific_project, user_projects=user_projects, crew=crew, users=users)
 
 
-@app.route('/callsheet/<project_id>')
-def view_callsheet(project_id):
+@app.route('/callsheets/<project_id>',  methods=['GET', 'POST'])
+def all_callsheets(project_id):
+    """ User's contact list."""
+
+    if request.method == 'POST':
+        project_id = project_id
+        day_number = request.form.get("day_number")
+        shoot_date = request.form.get("shoot_date")
+        lunch_time = request.form.get("lunch_time")
+        lunch_location = request.form.get("lunch_location")
+        newCallsheet = Callsheet(project_id=project_id, 
+                            day_number=day_number,
+                            shoot_date=shoot_date,
+                            lunch_time=lunch_time,
+                            lunch_location=lunch_location)
+        db.session.add(newCallsheet)
+        db.session.commit()
+        users = User.query.all()
+
+    specific_project = Project.query.get(project_id)
+    user_projects = Project.query.filter_by(user_id=session['user_id'])
+    # crew = Crew.query.filter_by(project_id=project_id)
+    callsheets = Callsheet.query.all()
+    
+    return render_template("/projects/callsheets.html", callsheets=callsheets, specific_project=specific_project, user_projects=user_projects)
+
+
+@app.route('/callsheets/<project_id>/<callsheet_id>')
+def view_callsheet(project_id, callsheet_id):
     """ User's contact list."""
     
+    specific_callsheet = Callsheet.query.get(callsheet_id)
     specific_project = Project.query.get(project_id)
     user_projects = Project.query.filter_by(user_id=session['user_id'])
 
-    return render_template("projects/callsheet.html", specific_project=specific_project)
+    return render_template("projects/callsheet_id.html", specific_project=specific_project, specific_callsheet=specific_callsheet)
 
 
 @app.route('/contacts')
@@ -214,6 +242,10 @@ def view_contacts():
     """ User's contact list."""
 
     users = User.query.all()
+    # location = location.replace('(', '').replace(')', '')
+    # location = location.split(",")
+    # lat = location[0]
+    # lon = location[1]
     
     return render_template("users/contacts.html", users=users)
 

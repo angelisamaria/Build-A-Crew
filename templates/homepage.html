@@ -13,13 +13,6 @@ They will be redirected to their dashboard
     <h1 class="display-1">Build a Crew</h1>
     <img src='/static/bac.jpg' height="200">
     <img src='https://as2.ftcdn.net/jpg/01/78/57/95/500_F_178579554_3rnKhowuoMSi1wFjwxgjrm2iPDVCeN8X.jpg' height="200">
-
-    <div>
-        <form method="get" action="/register">
-            <button type="submit">Create a Profile</button>
-        </form><br>
-    </div>
-
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Login</button>
 
 <!-- Modal -->
@@ -43,46 +36,48 @@ They will be redirected to their dashboard
           </div>
           <div class="form-group">
             <div class="modal-footer">
-                <button type="submit" class="btn btn-secondary" data-target="#registerModal">Register</button>
                 <button type="submit" class="btn btn-primary">Log In</button>
             </div>
           </div>
         </form>
         <p>Don't have an account?</p>
-        <form method="GET" action="/register">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">Register</button>
       </div>
-
     </div>
   </div>
 </div>
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">Register</button>
-
 <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Log In</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Start Building Your Crew</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form action="/register" method="POST">
+        <form action="/register" method="POST" role="form">
+          <div class="form-group">
+            <label for="searchterm" class="col-sm-2 control-label"></label>
+            <div class="col-sm-10">
             First Name: <input type="text" name="fname" required><br>
             Last Name: <input type="text" name="lname" required><br>
             Email: <input type="text" name="email" required><br>
             Password: <input type="password" name="pw" required><br>
             Portfolio: <input type="text" name="portfolio"><br>
             Location: <input type="text" name="location" required><br>
-            <input type="submit" value="Register">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+          </div>
         </form>
         <p>Already have an account?</p>
-        <form method="GET" action="/register">
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-secondary" data-target="#loginModal">Login</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Log In</button>
       </div>
     </div>
   </div>
