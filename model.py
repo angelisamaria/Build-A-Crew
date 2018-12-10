@@ -16,10 +16,11 @@ class User(db.Model):
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     email = db.Column(db.String(64), nullable=False)
     pw = db.Column(db.String(64), nullable=False)
-    fname = db.Column(db.String(64), nullable=True)
-    lname = db.Column(db.String(64), nullable=True)
-    location = db.Column(db.String(64), nullable=True)
-    portfolio = db.Column(db.String(64), nullable=True)
+    fname = db.Column(db.String(64), nullable=False)
+    lname = db.Column(db.String(64), nullable=False)
+    zipcode = db.Column(db.Integer, nullable=False)
+    role = db.Column(db.String(64))
+    linkedin = db.Column(db.String(64), nullable=True)
  
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -29,8 +30,9 @@ class User(db.Model):
                         pw={self.pw}
                         fname={self.fname}
                         lname={self.lname}
-                        location={self.location}
-                        portfolio={self.portfolio}>"""
+                        zipcode={self.zipcode}
+                        role={self.role}
+                        linkedin={self.linkedin}>"""
 
 
 class Project(db.Model):
@@ -42,7 +44,6 @@ class Project(db.Model):
     title = db.Column(db.String(120), nullable=True)
     sdate = db.Column(db.String(64), nullable=True)
     edate = db.Column(db.String(64), nullable=True) # change to datetime later
-    location = db.Column(db.String(64), nullable=True)
     status = db.Column(db.Boolean, default=True, nullable=False)
     proj_desc = db.Column(db.String(300), nullable=True)
     user_id = db.Column(db.Integer, default=0, nullable=False)
@@ -55,7 +56,6 @@ class Project(db.Model):
                         title={self.title}
                         start date={self.sdate}
                         end date={self.edate}
-                        location={self.location}
                         status={self.status}
                         proj_desc={self.proj_desc}
                         proj_img={self.proj_img}>"""
@@ -70,6 +70,7 @@ class Crew(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     role = db.Column(db.String(64), nullable=True)
     users = db.relationship('User')
+    fullname = db.Column(db.String(64))
  
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -77,7 +78,8 @@ class Crew(db.Model):
         return f"""<Crew crew_id={self.user_id} 
                         project_id={self.project_id}
                         user_id={self.user_id}
-                        role={self.role}>"""
+                        role={self.role}
+                        fullname={self.fullname}>"""
 
 
 # join table 
@@ -98,6 +100,9 @@ class Callsheet(db.Model):
     shoot_date = db.Column(db.String(64))
     lunch_time = db.Column(db.String(64))
     lunch_location = db.Column(db.String(64))
+    hospital_name = db.Column(db.String(64))
+    hostpital_location = db.Column(db.String(64))
+    parking_address = db.Column(db.String(64))
 
     projects = db.relationship('Project')
 
@@ -108,7 +113,62 @@ class Callsheet(db.Model):
                         project_id={self.project_id}
                         shoot_date = {self.shoot_date}
                         lunch_time={self.lunch_time}
-                        lunch_location={self.lunch_location}>"""
+                        lunch_location={self.lunch_location}
+                        hospital_name={self.hospital_name}
+                        hostpital_location={self.hostpital_location}
+                        parking_address={self.parking_address}>"""
+
+
+class Schedule(db.Model):
+    """Schedule Information."""
+
+    __tablename__ = "schedules"
+
+    schedule_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    callsheet_id = db.Column(db.Integer, db.ForeignKey('callsheets.callsheet_id'))
+    daynight = db.Column(db.String(64))
+    script = db.Column(db.String(64))
+    shoot_time = db.Column(db.String(64))
+    scene = db.Column(db.String(64))
+    shoot_description = db.Column(db.String(64))
+    talent = db.Column(db.String(64))
+
+    callsheets = db.relationship('Callsheet')
+ 
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return f"""<Schedule schedule_id={self.user_id} 
+                        callsheet_id={self.callsheet_id}
+                        daynight={self.daynight}
+                        script={self.script}
+                        shoot_time={self.shoot_time}
+                        scene={self.scene}
+                        shoot_description={self.shoot_description}
+                        talent={self.talent}>"""
+
+
+class Location(db.Model):
+    """Schedule Information."""
+
+    __tablename__ = "locations"
+
+    location_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    schedule_id = db.Column(db.Integer, db.ForeignKey('schedules.schedule_id'))
+    location_name = db.Column(db.String(64))
+    address = db.Column(db.String(64))
+    location_num = db.Column(db.Integer)
+
+    schedules = db.relationship('Schedule')
+ 
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return f"""<Location location_id={self.location_id} 
+                        schedule_id={self.schedule_id}
+                        address={self.callsheet_id}
+                        location_name={self.location_name}
+                        location_num={self.location_num}>"""
 
 ##############################################################################
 # Helper functions

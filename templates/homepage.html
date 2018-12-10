@@ -10,21 +10,32 @@ They will be redirected to their dashboard
     {% block title %}Build a Crew{% endblock %}
 
 {% block content %} 
-    <h1 class="display-1">Build a Crew</h1>
-    <img src='/static/bac.jpg' height="200">
-    <img src='https://as2.ftcdn.net/jpg/01/78/57/95/500_F_178579554_3rnKhowuoMSi1wFjwxgjrm2iPDVCeN8X.jpg' height="200">
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Login</button>
 
-<!-- Modal -->
+<link rel="stylesheet" type="text/css" href="static/css/homepage.css">
+
+<div class="container">
+  <div class="row">
+    {% for user in users %}
+    <div class="rounded myleftyleft" onmouseover="this.innerHTML='{{ user.fname }}';"
+            onmouseout="this.innerHTML='{{ user.role }}';"></div>
+  {% endfor %}
+  <div class="rounded formlinks" data-toggle="modal" data-target="#loginModal">Login</div>
+    <div class="rounded formlinks" data-toggle="modal" data-target="#registerModal">Register</div>
+</div>
+  <div class="row">
+    <div class="col"><h1>Build a Crew</h1></div>
+  </div>
+  <div class="row">
+    
+  </div>
+ </div>
+</div>
+
+
+<!-- LOGIN MODAL -->
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Log In</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+    <div class="modal-content border-10">
       <div class="modal-body">
         <form action="/login" method="POST" role="form">
           <div class="form-group">
@@ -33,24 +44,24 @@ They will be redirected to their dashboard
                Email: <input type="text" name="email"><br>
                Password: <input type="password" name="pw">
             </div>
+            <button type="submit" class="btn btn-primary">Log In</button>
           </div>
           <div class="form-group">
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Log In</button>
+              Don't have an account?
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">Register</button>
             </div>
           </div>
         </form>
-        <p>Don't have an account?</p>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">Register</button>
+        
       </div>
     </div>
-  </div>
-</div>
+  </div></div>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">Register</button>
+<!-- REGISTER MODAL -->
 <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content border-10">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Start Building Your Crew</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -66,8 +77,54 @@ They will be redirected to their dashboard
             Last Name: <input type="text" name="lname" required><br>
             Email: <input type="text" name="email" required><br>
             Password: <input type="password" name="pw" required><br>
-            Portfolio: <input type="text" name="portfolio"><br>
-            Location: <input type="text" name="location" required><br>
+            LinkedIn: <input type="text" name="linkedin"><br>
+            Your Specialty:
+            <select name="role">
+              <optgroup label="Art Department">
+                <option value="Art Director">Art Director</option>
+                <option value="Production Designer">Production Designer</option>
+                <option value="Prop Master">Prop Master</option>
+                <option value="Set Designer">Set Designer</option>
+              </optgroup>
+              <optgroup label="Audio/Music/Sound">
+                <option value="Voiceover Talent">Voiceover Talent</option>
+                <option value="Music Composer">Music Composer</option>
+                <option value="Boom Operator">Boom Operator</option>
+                <option value="Sound Mixer/Recordist">Sound Mixer/Recordist</option>
+                <option value="Foley Artist">Foley Artist</option>
+              </optgroup>
+              <optgroup label="Camera">
+                <option value="First Assistant Camera (1st AC)">First Assistant Camera (1st AC)</option>
+                <option value="Second Assistant Camera (2nd AC)">Second Assistant Camera (2nd AC)</option>
+                <option value="Director of Photography">Director of Photography</option>
+                <option value="Digital Imaging Technician (DIT)">Digital Imaging Technician (DIT)</option>
+                <option value="Steadicam Operator">Steadicam Operator</option>
+                <option value="Drone Operator">Drone Operator</option>
+              </optgroup>
+              <optgroup label="Grip/Lighting/Electric">
+                <option value="Best Boy Grip + Electric">Best Boy Grip + Electric</option>
+                <option value="Gaffer">Gaffer</option>
+                <option value="Grip">Grip</option>
+                <option value="Key Grip">Key Grip</option>
+              </optgroup>
+              <optgroup label="Production + Directing">
+                <option value="Director">Director</option>
+                <option value="Assistant Director">Assistant Director</option>
+                <option value="Executive Producer">Executive Producer</option>
+                <option value="Producer">Producer</option>
+                <option value="Production Coordinator">Production Coordinator</option>
+                <option value="Production Assistant">Production Assistant</option>
+              </optgroup>
+              <optgroup label="Wardrobe/Hair/Makeup">
+                <option value="Costume Designer">Costume Designer</option>
+                <option value="Hair Stylist">Hair Stylist</option>
+                <option value="Make Up Artist">Make Up Artist</option>
+                <option value="Hair + MUA">Hair + MUA</option>
+                <option value="Special Effects Makeup Artist">Special Effects Makeup Artist</option>
+                <option value="Wardrobe Stylist">Wardrobe Stylist</option>
+              </optgroup>
+            </select><br>
+            Zipcode: <input type="text" name="zipcode" required><br>
             </div>
           </div>
           <div class="form-group">
@@ -80,7 +137,6 @@ They will be redirected to their dashboard
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Log In</button>
       </div>
     </div>
-  </div>
-</div>
+  </div></div>
 
 {% endblock %}
