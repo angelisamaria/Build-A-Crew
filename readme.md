@@ -41,7 +41,15 @@ Users can view their project progress in the dashboard, their to-do list based o
 - Location scouting
 - Project brainstorm forum/message board
 
-## Tools
+## Languages/Frameworks/Libraries/Tools
+- Python
+- Flask
+- SQL (SQLAlchemy)
+- PostgreSQL
+- Bootstrap
+- HTML5
+- CSS3
+- JavaScript
 - Dark Sky API
 - Chart JS
 - Jquery UI Library (Draggable & Sortable)
