@@ -70,6 +70,7 @@ def registration_form():
         fname = request.form.get("fname")
         lname = request.form.get("lname")
         zipcode = request.form.get("zipcode")
+        picture = request.form.get("picture")
         linkedin = request.form.get("linkedin")
         role = request.form.get("role")
         new_user = User(email=user_email, 
@@ -78,7 +79,8 @@ def registration_form():
                             lname=lname,
                             zipcode=zipcode,
                             linkedin=linkedin,
-                            role=role)
+                            role=role,
+                            picture=picture)
                             
         db.session.add(new_user)
         db.session.commit()
@@ -142,10 +144,9 @@ def user_dashboard():
 
     user = User.query.get(session['user_id'])
     user_projects = Project.query.filter_by(user_id=session['user_id'])
+    specific_project = Project.query.filter_by(user_id=session['user_id']).first()
     numprojects = Project.query.filter_by(user_id=session['user_id']).count()
-
-    crewed = User.query.join(Project, session['user_id']==Project.user_id).join(Crew, Project.project_id==Crew.project_id).count()
-    
+    crewed = Project.query.filter_by(user_id=session['user_id']).join(Crew, Crew.project_id == Project.project_id).count()
 
 
     now = datetime.now()
@@ -169,14 +170,9 @@ def user_dashboard():
     current_temp = int(currently['temperature']) #66.51
     current_icon = currently['icon'] # clear-sky 
     current_summary = currently['summary'] # clear skies
-
     icons = {'clear-day': "fas fa-sun", 'clear-night': "fas fa-moon", 'rain': "fas fa-umbrella",'snow': "fas fa-snowflake",'fog': "fas fa-cloud",'wind': "fas fa-wind",'cloudy': "fas fa-cloud",'partly-cloudy-day': "fas fa-cloud-sun",'partly-cloudy-night': "fas fa-cloud-moon",'hail': "fas fa-cloud-showers-heavy",'thunderstorm': "fas fa-bolt",'tornado': "fas fa-umbrella" }
-
     icon = icons[current_icon]
-    print(icon)
-
-
-
+    
     return render_template("/projects/dashboard.html", 
                             user=user, 
                             numprojects=numprojects, 
@@ -188,7 +184,8 @@ def user_dashboard():
                             today_month=today_month,
                             today_date=today_date,
                             icon=icon,
-                            crewed=crewed)
+                            crewed=crewed,
+                            specific_project=specific_project)
 
 
 @app.route('/projects')
@@ -403,7 +400,8 @@ def project_crew(project_id):
 
     specific_project = Project.query.get(project_id)
     user_projects = Project.query.filter_by(user_id=session['user_id'])
-    crew = Crew.query.filter_by(project_id=project_id).all()
+    crew = Crew.query.join(Project, Crew.project_id==project_id).join(User, Project.user_id==session['user_id']).all()
+
     users = User.query.all()
     return render_template("/crews/crew.html", 
                                 specific_project=specific_project, user_projects=user_projects, 
@@ -467,6 +465,6 @@ if __name__ == "__main__":
     connect_to_db(app)
     db.create_all()
 
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
 
     app.run(host="0.0.0.0")

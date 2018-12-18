@@ -21,6 +21,7 @@ class User(db.Model):
     zipcode = db.Column(db.Integer, nullable=False)
     role = db.Column(db.String(64))
     linkedin = db.Column(db.String(64), nullable=True)
+    picture = db.Column(db.String(120), nullable=True)
  
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -32,6 +33,7 @@ class User(db.Model):
                         lname={self.lname}
                         zipcode={self.zipcode}
                         role={self.role}
+                        picture={self.picture}
                         linkedin={self.linkedin}>"""
 
 
