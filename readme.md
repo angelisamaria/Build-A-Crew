@@ -20,7 +20,7 @@ Creating a project is simple and lives in their user dashboard.
 ### Step 3: Add crewmembers
 Using the Jquery UI library's Draggable and Sortable, Producers and drag and drop users from the user table directly into the crews table via AJAX. Each users name, role and image are shown.
 
-## Step 4: Dashboard
+### Step 4: Dashboard
 Users can view their project progress in the dashboard, their to-do list based on SQLAlchemy queries that quantify their project data. They are also given a visual representation of their project progress via Chart.js.
 
 ## Features
