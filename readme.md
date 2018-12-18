@@ -1,6 +1,9 @@
 # Build a Crew
 Build a crew is a place for Video Producers to manage their projects, crewmembers and callsheets all in one place.
 
+![Image of Intro]
+(http://i67.tinypic.com/w2f3gy.gif)
+
 ## Problem
 
 Film Producers have multiple projects, names, roles, emails and dates they need to keep track of. In working with lots of talent, it is easy to lose track of a crewmember's availability, their contact information and their location. This results in multiple back-and-forth emails, spreadsheets, folders and manual sharing of documents.
