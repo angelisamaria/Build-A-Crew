@@ -1,8 +1,7 @@
 # Build a Crew
 Build a crew is a place for Video Producers to manage their projects, crewmembers and callsheets all in one place.
 
-![Image of Intro]
-(http://i67.tinypic.com/w2f3gy.gif)
+![Image of Intro](http://i67.tinypic.com/w2f3gy.gif)
 
 ## Problem
 
