@@ -1,54 +1,25 @@
 # Build a Crew
 Build a crew is a place for Video Producers to manage their projects, crewmembers and callsheets all in one place.
 
+## Problem
 
-## Solution:
+Film Producers have multiple projects, names, roles, emails and dates they need to keep track of. In working with lots of talent, it is easy to lose track of a crewmember's availability, their contact information and their location. This results in multiple back-and-forth emails, spreadsheets, folders and manual sharing of documents.
 
-Step 1: Create profile
-Your role
-Your portfolio
-Headshot
-Skillset
-Connect to Facebook
-Add connections
-LinkedIn profile
-Email
-Contact phone #
-Status: Seeking work, seeking [crew type]
-Rates (range OK?)
-User to user: reviews, endorsements
+## Solution
 
-Step 2: Create a posting
-Project info
-Dates
-Location
-Crew needed
-Rates
-Required skills
+Build-a-Crew is meant to provide ease for a Film Producer, tracking their projects, crewmembers and schedules all in one place. 
 
-Step 3: Book a gig
-Search gigs
-Apply - matches your skill set
-Green vs red: still available/closed
+### Step 1: Create profile
+Users create a profile with basic information to log in and track their projects.
 
-Step 4: Review booking request (hiring)
-Green vs red:
-Matching skills
-Matching location
-Matching pay range
-Portfolio info
-Read reviews
+### Step 2: Create a project
+Creating a project is simple and lives in their user dashboard.
 
-Step 5: Book a crew member
-Select crew type
-Select pay range
-Select availability times
-Select locations
+### Step 3: Add crewmembers
+Using the Jquery UI library's Draggable and Sortable, Producers and drag and drop users from the user table directly into the crews table via AJAX. Each users name, role and image are shown.
 
-Step 6: Review
-Review crew member after gig
-Add to preferred connections
-Payment
+## Step 4: Dashboard
+Users can view their project progress in the dashboard, their to-do list based on SQLAlchemy queries that quantify their project data. They are also given a visual representation of their project progress via Chart.js.
 
 ## Features
 ### MVP features
