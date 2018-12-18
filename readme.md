@@ -23,28 +23,28 @@ Users can view their project progress in the dashboard, their to-do list based o
 
 ## Features
 ### MVP features
-Create Profile - username, password, portfolio or LinkedIn, skillset (role) and location
-Create Project - title, logline, start date and end date
-Manage Crew - Drag users to Crew for specific project
-Manage Callsheets - Add callsheets to specific project
+- Create Profile - username, password, portfolio or LinkedIn, skillset (role) and location
+- Create Project - title, logline, start date and end date
+- Manage Crew - Drag users to Crew for specific project
+- Manage Callsheets - Add callsheets to specific project
 
 ### 2.0
-Dark Sky API - Weather for the day, both for the user and for each callsheet shoot date
-Chart JS - Data visualization of project and crew progress
-To-Do list - taken from Postgres database using SQLAlchemy + user additions
+- Dark Sky API - Weather for the day, both for the user and for each callsheet shoot date
+- Chart JS - Data visualization of project and crew progress
+- To-Do list - taken from Postgres database using SQLAlchemy + user additions
 
 ### Future
-User-to-user interaction
-Local resources page
-Sharing callsheet PDF's via email
-Calendar invites
-Location scouting
-Project brainstorm forum/message board
+- User-to-user interaction
+- Local resources page
+- Sharing callsheet PDF's via email
+- Calendar invites
+- Location scouting
+- Project brainstorm forum/message board
 
 ## Tools
 - Dark Sky API
 - Chart JS
-- Jquery UI Library
+- Jquery UI Library (Draggable & Sortable)
 
 ## Database
 
