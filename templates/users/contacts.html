@@ -1,0 +1,25 @@
+{% extends '/base/base2.html' %}
+    {% block title %}Contacts{% endblock %}
+{% block content %}
+
+<h1>Contacts</h1>
+
+
+<div class="container">
+  <div class="row mx-auto">
+{% for user in users %}
+<div class="card mx-auto border-10" onclick="window.location = '/user/{{ user.user_id }}'" style="width: 15rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{ user.fname }} {{ user.lname }}</h5><br>
+    {{ user.role }}<br>
+    {{ user.zipcode }}<br>
+    {{ user.linkedin }}<br>
+  </div>
+</div>
+{% endfor %}
+
+
+
+
+
+{% endblock %}

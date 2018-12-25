@@ -1,0 +1,150 @@
+body {
+    background-color: #1a2227;
+    font-size:12px;
+    font-color:white;
+}
+
+.border-10 {
+border-style:solid;
+border-width: 1px;
+border-color:#333e46;
+background-color:#2f383e;
+font-color:white;
+margin-top:20px;
+border-radius: 10px;
+
+}
+
+.border-10:hover {
+background-color:#3d4850 !important;
+color:white;
+
+}
+
+.border-6 {
+border-style:solid;
+border-width: 1px;
+border-color:#333e46;
+background-color:#2f383e;
+font-color:white;
+margin-top:20px;
+border-radius: 10px;
+
+}
+
+.border-6:hover {
+background-color:#60867b !important;
+color:white;
+
+}
+
+.smalldiv {
+    height:200px;
+
+}
+
+.todo {
+    height:420px;
+
+}
+
+
+.breadcrumb {
+    background-color:#2f383e;
+
+}
+
+.navbar nav {
+    background-color:#2f383e;
+}
+
+a {
+    color:#61c0a4;
+
+}
+
+a:hover {
+    color:#2afabd;
+}
+
+
+h1, h2, h3, h4, h5, p, ul, li {
+color:white;
+}
+
+.profilepic {
+    -webkit-clip-path: circle(50% at 50% 50%);
+    clip-path: circle(50% at 50% 50%);
+
+}
+
+.sidenav {
+    height: 100%;
+    width: 70px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color:#2f383e;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidebox {
+    
+}
+
+.sidebox {
+border-style:solid;
+padding:1px 5px;
+width:100%;
+border-width: 1px;
+border-color:#333e46;
+background-color:#2f383e;
+margin-top:20px;
+border-radius: 10px;
+color:#61c0a4;
+
+}
+
+.sidebox:hover {
+    background-color:#3d4850 !important;
+    font-color:#2afabd;
+
+
+}
+
+.body {
+    padding-left: 1000px;
+}
+
+
+
+.me {
+    padding-left:20px;
+}
+
+.sidefont {
+
+    font-size:20px;
+}
+
+.crewlist img{
+    display: inline-block;
+}
+
+.greenpuzzle {
+    width:50px;
+    height:40px;
+    padding-right:12px;
+}
+
+.breadcrumb {
+    padding-left:120px;
+}
+
+.charty {
+    font-color:white;
+    width:400px;
+    height:400px;
+}

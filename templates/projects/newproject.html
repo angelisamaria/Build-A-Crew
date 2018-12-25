@@ -1,0 +1,23 @@
+{% extends '/base/base2.html' %}
+    {% block title %}Create a New Project{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Add a Project</h1>
+<form action="/newproject" method="POST">
+    <h5>Title: </h5><input type="text" name="title"><br>
+    <h5>Start Date: </h5><input type="date" name="sdate"><br>
+    <h5>End Date: </h5><input type="date" name="edate"><br>
+    <h5>Project Image Url: </h5><input type="text" name="proj_img"><br>
+    <h5>Logline: </h5><textarea name="proj_desc"></textarea>
+    <input type="hidden" name="user_id" value='{{ user_id }}'><br>
+
+    <input type="submit" value="Create">
+</form>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

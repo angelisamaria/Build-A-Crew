@@ -1,0 +1,8 @@
+.card {
+    cursor:pointer;
+}
+
+.border-10{
+border-style:solid;
+ border-width: 10px;
+}

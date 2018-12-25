@@ -1,0 +1,297 @@
+
+<!-- MY PAGE :) -->
+<!-- <div class="container">
+  <div class="row rounded mx-auto">
+  This Row Will Have the Search Bar
+  </div>
+  <div class="row rounded mx-auto ">
+    <div id="draggable1" class="col sortableList border-10">
+      <h5>Crew List - Drag Here!</h5>
+
+        {% for crewmember in crew%}
+      <div class="ui-state-default rounded mx-auto border-10" onmousedown="initOrderHandler()"> 
+        <span id="{{crewmember.crew_id}}"><h5>{{ crewmember.role }}</h5>{{ crewmember.fullname }}</span>
+        
+      </div>
+      {% endfor %}
+      </div>
+
+    <div class="col">
+      <div id="draggable2" class="sortableList">
+      {% for user in users %}
+            <div class="ui-state-default rounded mx-auto border-10" onmousedown="mouseDown1()"> 
+              <span id="{{ user.user_id }}"><h5>{{ user.role }}</h5>{{ user.fname }} {{ user.lname }}</span>
+            </div>
+      {% endfor %}
+      </div>
+  </div>
+  </div></div> -->
+
+
+<!-- JS getCrewMembers -->
+<script>
+  "use strict";
+
+  function getCrewMembers() {
+    $.get('/getcrew', (results) => {
+      const allcrew = results;
+
+    $.each(allcrew, function (index, value) {
+      for (let val in value ) {
+        const fullname = value[val]['fullname'];
+        const role = value[val]['role'];
+        const crew_user_id = value[val]['user_id'];
+        const crew_project_id = value[val]['project_id'];
+        const crew_id = value[val]['crew_id'];
+      console.log(fullname, role, crew_project_id, crew_user_id, crew_id);
+
+      $('#crewmember').html(fullname);
+      $('#crewrole').html(role);
+      $('#cuserid').html(crew_user_id);
+      $('#cprojid').html(crew_project_id);
+      $('#crewid').html(crew_id);
+  }
+     
+    });
+    });
+  }
+
+  getCrewMembers();</script>
+
+
+    function getCrewMembers() {
+    $.get('/crew/{{specific_project.project_id}}', (results) => {
+      const allcrew = results;
+
+    });
+
+    $.forEach(allcrew, function (crewmember) {
+      let crew = (`<li class="ui-state-highlight border-6 crewlist user_id${crewmember.user_id}">
+        <img src="https://randomuser.me/api/portraits/thumb/women/66.jpg">
+        <p><b>${crewmember.role}</b><br>${ crewmember.fullname }</p></li>`);
+
+     }
+   }
+
+
+
+
+
+<!-- JS getCrewMembers -->
+<script>
+  "use strict";
+
+  function getAllUsers() {
+    $.get('/getusers', (results) => {
+      const allusers = results;
+
+    $.each(allusers, function (index, value) {
+      for (let val in value ) {
+        const fname = value[val]['firstname'];
+        const lname = value[val]['lastname'];
+        const userrole = value[val]['role'];
+        const user_id = value[val]['user_id'];
+      // console.log(fname, lname, userrole, user_id);
+
+      $('#user_id').html(user_id);
+      $('#fname').html(fname)
+  }
+     
+    });
+    });
+  }
+
+  getAllUsers();</script>
+
+
+
+<style>
+  #sortable1, #sortable2 {
+    border: 1px solid #eee;
+    width: 142px;
+    min-height: 20px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    float: left;
+    margin-right: 10px;
+  }
+  #sortable1 li, #sortable2 li {
+    margin: 0 5px 5px 5px;
+    padding: 5px;
+    font-size: 1.2em;
+    width: 120px;
+  }
+  </style>
+
+
+<script>
+    
+  $( function() {
+    $('.sortable-list').sortable({
+  connectWith: '.sortable-list',
+  update: function(event, ui) {
+    var changedList = this.id;
+    var order = $(this).sortable('toArray');
+    var positions = order.join(';');
+
+    console.log({
+      id: changedList,
+      positions: positions
+    });
+  }
+});
+
+  </script>
+
+  <style>
+  #draggable1 {
+    list-style-type: none;
+    margin: 5px;
+    padding: 5px 5px;
+    border-style:solid;
+    border-width: 5px;
+    border-color:orange;
+    background-color:yellow;
+    font-color:#000;
+    width: auto;
+    height: auto;
+    text-align: center;
+    cursor: -webkit-grab; cursor: grab;
+
+  }
+
+  #draggable2 {
+    width: 100%;
+    min-height: 20px;
+    list-style-type: none;
+    border-color:#000;
+    border-width: 5px;
+    margin: 5px, 5px;
+    padding: 5px 5px;
+    text-align: center;
+    cursor: -webkit-grab; cursor: grab;
+
+  }
+
+</style>
+
+
+// jquery drag and drop
+  $( function() {
+    $( "#draggable1, #draggable2" ).sortable({
+      connectWith: ".sortableList"
+    })
+  } 
+);
+
+</script>
+
+
+<script type="text/javascript">
+    "use strict"
+
+// jquery drag and drop
+  $( function() {
+    $( "#draggable1, #draggable2" ).sortable({
+      connectWith: ".sortableList"
+    })
+  } 
+);
+
+</script>
+
+
+
+<!-- <script>
+  
+  $( function() {
+    $( "#sortable" ).sortable();
+    $( "#sortable" ).disableSelection();
+  } );
+  $('#sortable').on('sortupdate', function () {
+
+          var r = $("#sortable").sortable("toArray");
+          var a = $("#sortable").sortable("serialize", {
+              attribute: "id"
+          });
+  $.post("/addcrew", order);
+          console.log(a);
+  });
+$get
+</script> -->
+
+<!-- <script>
+  "use strict"
+
+$(".send").click(function() {
+
+    var data_array = new Array();
+    $(".dropped").each(function(){
+        var item = {};
+        for(var i in $(this).data()){
+            item[i] = $(this).data(i);
+        }
+        data_array.push(item);
+
+    });
+    var serialized = JSON.stringify(data_array);
+    console.log(serialized)
+
+    $("#result").text(serialized);
+
+});
+
+</script> -->
+
+
+<!-- <div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive">
+        <table class="table" id="flights">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Role</th>
+              <th scope="col">Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for crewmember in crew%}
+            <tr id="flightid">
+              <td>{{ crewmember.fullname }}</td>
+              <td>{{ crewmember.role }}</td>
+              <td> <a href="/edit/flightid">X</a> </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col">
+      <form action="/crew/5" method="POST" role="form">
+        <div class="form-group">
+            <select name="potentialcrew">
+              {% for user in users %}
+                <option name="potentialperson">{{ user.role }} - {{ user.fname }} {{ user.lname }}</option>
+            </select>
+                <input type="hidden" name="fullname" value="{{ user.fname }} {{ user.lname }}">
+                <input type="hidden" name="userrole" value="{{ user.role }}">
+                <input type="hidden" name="userid" value="{{ user.user_id }}">
+                <input type="hidden" name="projid" value="{{ specific_project.project_id }}">
+              {% endfor %}
+            
+            <br><button type="submit" class="btn btn-primary">Add to Crew</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+ -->
+
+
+
+
+

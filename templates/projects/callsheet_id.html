@@ -1,0 +1,159 @@
+{% extends '/base/base2.html' %}
+    {% block title %}Callsheet{% endblock %}
+{% block content %}
+
+  <link rel="javascript" href="weatherrequest.js">
+  <script src="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
+    <li class="breadcrumb-item"><a href="/projects/{{ specific_project.project_id }}">{{ specific_project.title }}</a></li>
+    <li class="breadcrumb-item"><a href="/callsheets/{{ specific_project.project_id }}">{{ specific_project.title }} Callsheets</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ specific_project.title }} Day {{ specific_callsheet.day_number }}</li>
+  </ol>
+</nav>
+
+
+<div class="container">
+  <div class="row rounded border shadow p-3 mb-5 bg-white" style="background:lightgray">
+
+    <div class="col">
+      <h3>{{ specific_project.title }}</h3>
+      <img src="{{ specific_project.proj_img }}">
+      <p>
+        Shoot Day #{{ specific_callsheet.day_number }}<br>
+        Shoot Date: {{ specific_callsheet.shoot_date }}
+      </p>
+    </div>
+
+    <div class="col">
+      <h4>General Info</h4><b>Weather</b><br>
+       
+      {% if current_icon == 'clear-day' %}
+      <i class="fas fa-sun"></i>
+      {% endif %}
+
+      {% if current_icon == 'clear-night' %}
+      <i class="fas fa-moon"></i>
+      {% endif %}
+
+      {% if current_icon == 'rain' %}
+      <i class="fas fa-umbrella"></i>
+      {% endif %}
+
+      {% if current_icon == 'snow' %}
+      <i class="fas fa-snowflake"></i>
+      {% endif %}
+
+      {% if current_icon == 'fog' %}
+      <i class="fas fa-cloud"></i>
+      {% endif %}
+
+      {% if current_icon == 'wind' %}
+      <i class="fas fa-wind"></i>
+      {% endif %}
+
+      {% if current_icon == 'cloudy' %}
+       <i class="fas fa-cloud"></i>
+      {% endif %}
+
+      {% if current_icon == 'partly-cloudy-day' %}
+      <i class="fas fa-cloud-sun"></i>
+      {% endif %}
+
+      {% if current_icon == 'partly-cloudy-night' %}
+      <i class="fas fa-cloud-moon"></i>
+      {% endif %}
+
+      {% if current_icon == 'hail' %}
+      <i class="fas fa-cloud-showers-heavy"></i></i>
+      {% endif %}
+
+      {% if current_icon == 'thunderstorm' %}
+      <i class="fas fa-bolt"></i>
+      {% endif %}
+
+      {% if current_icon == 'tornado' %}
+      <i class="fas fa-umbrella"></i>
+      {% endif %}
+     
+      {{current_temp }}&#176; F<br> {{ current_summary }}<br><br>
+
+      <b>Crew Call</b><br>8:00am
+
+    </div>
+
+    <div class="col">
+      <h4><i class="fas fa-address-card"></i> Contact Info</h4>{% for person in crew %}
+      <p><b>{{person.role }}:</b> {{ person.fullname }}</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="row rounded border shadow p-3 mb-5 bg-white">
+    <div class="col">
+      <h4>Shoot Locations</h4>
+      <p>Location 1<br>1234 HTML Way.<br>San Francisco, CA 94122</p>
+      <p>Location 2<br>5678 Python Drive.<br>San Francisco, CA 94131</p>
+      <p>Location (( location.location_num ))<br>(( location.address ))</p>
+
+    </div>
+    <div class="col">
+      <h4>Parking Info</h4>
+      <p>(( callsheets.parking ))<br> Map Here</p>
+      <p>Dropdown to pick existing or add new location.</p>
+    </div>
+    <div class="col">
+      <h4>Other Info</h4>
+      <p>
+        (( callsheets.hospital ))<br>
+        (( callsheets.hospital_address ))<br>
+        (( callsheets.lunch_location ))<br>
+        (( callsheets.lunch_time))
+      </p>
+      <p>Dropdown to pick existing or add new location.</p>
+    </div>
+  </div>
+  <div class="row rounded border shadow p-3 mb-5 bg-white"><h1>Schedule</h1>
+    <div class="col">
+    </div>
+<table class="table table-hover" id="callsheet-sched">
+  <thead>
+    <tr>
+      <th scope="col">Time</th>
+      <th scope="col">Scene</th>
+      <th scope="col">Description</th>
+      <th scope="col">Day/Night</th>
+      <th scope="col">Cast</th>
+      <th scope="col">Location</th>
+      <th scope="col">Script Pages</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>(( schedule.shoot_time ))</td>
+      <td>(( schedule.scene ))</td>
+      <td>(( schedule.description))</td>
+      <td>(( schedule.dn ))</td>
+      <td>(( schedule.cast_list )) OR (( cast.cast_id ))</td>
+      <td>(( location.location_num ))</td>
+      <td>(( schedule.pages ))</td>
+    </tr>
+    <tr>
+      <td>(( schedule.time ))</td>
+      <td>(( schedule.scene ))</td>
+      <td>(( schedule.description))</td>
+      <td>(( schedule.dn ))</td>
+      <td>(( schedule.cast_list )) OR (( cast.cast_id ))</td>
+      <td>(( location.location_num ))</td>
+      <td>(( schedule.pages ))</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+<button type="button" class="btn btn-dark" onClick="window.print()"><i class="fas fa-print"></i> Print Callsheet</button>
+
+{% endblock %}

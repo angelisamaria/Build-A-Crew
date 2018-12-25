@@ -1,0 +1,73 @@
+{% extends '/base/base2.html' %}
+    {% block title %}{{ specific_project.title }}{% endblock %}
+{% block content %}
+
+<script src="static/js/projectform.js"></script>
+
+<!-- NAVBAR -->
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ specific_project.title }}</li>
+  </ol></nav>
+
+<!-- PROJECT INFO -->
+<div class="container">
+  <div class="row mx-1">
+
+    <div class="col rounded mx-1 border-10">
+        <div class="media">
+          <img class="mr-3" src="{{ specific_project.proj_img }}" alt="Generic placeholder image">
+          <div class="media-body">
+            <p contentEditable="true" title="Click to Edit"><h4>{{ specific_project.title }}</h4>
+            {{ specific_project.proj_desc }}</p>
+          </div>
+        </div>
+    </div>
+
+    <div class="col rounded mx-1 border-10">
+      <h4>Upcoming Shoot</h4>
+      <a href="/callsheets/{{ specific_project.project_id }}" class="btn btn-6" role="button" aria-disabled="true"><i class="fas fa-file"></i> Call Sheets</a><br><br>
+    </div>
+  </div>
+  <div class="row mx-1">
+    <div class="col rounded mx-1 border-10">
+      <h4>Details</h4>
+      <table class="table table-hover">
+        <tr>
+          <th scope="col">Start Date</th>
+            <td contentEditable="true">{{ specific_project.sdate }}</td>
+        </tr>
+        <tr>
+          <th scope="col">End Date</th>
+            <td>{{ specific_project.edate }}</td>
+        </tr>
+        <tr>
+          <th scope="col">Status</th>
+            <td>{% if specific_project.status == True %} <button type="button" class="btn btn-outline-success">Open</button>
+                {% else %} <button type="button" class="btn btn-outline-danger">Closed</button>
+                {% endif %}</td>
+        </tr>
+      </table>
+      <a href="#" class="btn btn-dark" role="button" aria-disabled="true"><i class="fas fa-edit"></i> Edit Project</a><br></div>
+    <div class="col rounded mx-1 border-10">
+      <h4>Crew</h4>
+      <p>
+      <ul>
+        {% for n in range(1) %}
+        {% for crewmember in crew %}
+        <li>{{ crewmember.fullname }} - {{ crewmember.role }}</li>
+        {% endfor %}
+        {% endfor %}
+      </ul>
+        <a href="/crew/{{ specific_project.project_id }}" class="btn btn-6" role="button" aria-disabled="true"><i class="fas fa-users"></i> See All</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+

@@ -1,0 +1,580 @@
+<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+
+
+
+<div id="container"></div>
+<style>
+  .element {
+    display: block;
+    position: relative;
+    width: 10%;
+    padding: 2.5%;
+    margin-right: 5%;
+    background-color: #aaa;
+    
+font-family: arial, helvetica, sans-serif;   
+    float: left;    
+    
+    -webkit-transition: background 0.5s ease-out;
+        -moz-transition: background 0.5s ease-out;
+        -ms-transition: background 0.5s ease-out;
+        -o-transition: background 0.5s ease-out;
+        transition: background 0.5s ease-out;
+}
+
+.element:hover {
+ 
+background-color: #ca0;    
+}
+
+.element .number {
+display: block;
+position: absolute;
+top: 0;
+right: 0;
+padding: 0.45em;
+background-color: #555;
+color: #fff;
+font-size: 0.75em;    
+}
+
+.element .symbol {
+ display: block;
+position: absolute;
+ top: 0;
+left: 0;
+    background-color: #000;
+    color: #fff;
+    font-size: 0.75em;
+    padding: 0.45em;
+}
+
+.element .name {
+ margin-top: 1.2em;   
+}
+.element .weight {
+ font-size: 0.85em;
+color: #555;    
+}
+
+</style>
+<script>
+
+
+ function renderElement(ajaxResponse) {
+
+  // turn string response to JSON array
+  var responseArray = JSON.parse(ajaxResponse);
+   
+  // make sure there is a response
+  if (responseArray.length > 0) {
+
+      // get container
+      var container = document.getElementById("container");
+
+      // iterate over each response
+      for (var i = 0; i < responseArray.length; i += 1) {
+          
+              // create the elems needed
+              var element = document.createElement("div");
+              element.className = "element";
+  
+              var number= document.createElement("p");
+              number.className = "number";
+              number.innerHTML = responseArray[i].number;
+  
+              var symbol = document.createElement("h3");
+              symbol.className = "symbol";
+              symbol.innerHTML = responseArray[i].symbol;
+  
+              var name = document.createElement("h2");
+              name.className = "name";
+              name.innerHTML = responseArray[i].name;
+  
+              var weight = document.createElement("p");
+              weight.className = "weight";
+              weight.innerHTML = responseArray[i].weight;
+  
+              // append them all to player wrapper
+              element.appendChild(number);
+              element.appendChild(symbol);
+              element.appendChild(name);
+              element.appendChild(weight);
+  
+              // append player to container
+              container.appendChild(element);
+      }
+  } 
+} 
+
+  window.addEventListener("load", function() {
+
+  var json = '[{"name":"Hydrogen","number":"1","symbol":"H","weight":"1.00794"},{"name":"Helium","number":2,"symbol":"He","weight":4.002602},{"name":"Lithium","number":3,"symbol":"Li","weight":6.941},{"name":"Beryllium","number":4,"symbol":"Be","weight":9.012182},{"name":"Boron","number":5,"symbol":"B","weight":10.811}]';
+      
+     
+      
+      renderElement(json);
+      
+      
+  });
+</script>
+
+
+
+
+#ee73a6
+
+
+
+
+ISOTOPE
+
+<style>
+    * { box-sizing: border-box; }
+
+  body {
+    font-family: sans-serif;
+  }
+
+  /* ---- button ---- */
+
+  .button {
+    display: inline-block;
+    padding: 0.5em 1.0em;
+    background: #EEE;
+    border: none;
+    border-radius: 7px;
+    background-image: linear-gradient( to bottom, hsla(0, 0%, 0%, 0), hsla(0, 0%, 0%, 0.2) );
+    color: #222;
+    font-family: sans-serif;
+    font-size: 16px;
+    text-shadow: 0 1px white;
+    cursor: pointer;
+  }
+
+  .button:hover {
+    background-color: #8CF;
+    text-shadow: 0 1px hsla(0, 0%, 100%, 0.5);
+    color: #222;
+  }
+
+  .button:active,
+  .button.is-checked {
+    background-color: #28F;
+  }
+
+  .button.is-checked {
+    color: white;
+    text-shadow: 0 -1px hsla(0, 0%, 0%, 0.8);
+  }
+
+  .button:active {
+    box-shadow: inset 0 1px 10px hsla(0, 0%, 0%, 0.8);
+  }
+
+  /* ---- button-group ---- */
+
+  .button-group:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  .button-group .button {
+    float: left;
+    border-radius: 0;
+    margin-left: 0;
+    margin-right: 1px;
+  }
+
+  .button-group .button:first-child { border-radius: 0.5em 0 0 0.5em; }
+  .button-group .button:last-child { border-radius: 0 0.5em 0.5em 0; }
+
+  /* ---- isotope ---- */
+
+  .grid {
+    background: #EEE;
+    max-width: 1200px;
+  }
+
+  /* clear fix */
+  .grid:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  /* ui group */
+
+  .ui-group {
+    display: inline-block;
+  }
+
+  .ui-group h3 {
+    display: inline-block;
+    margin-right: 0.2em;
+    font-size: 16px;
+  }
+
+  .ui-group .button-group {
+    display: inline-block;
+    margin-right: 20px;
+  }
+
+  /* color-shape */
+
+  .color-shape {
+    width: 70px;
+    height: 70px;
+    margin: 5px;
+    float: left;
+  }
+   
+  .color-shape.round {
+    border-radius: 35px;
+  }
+   
+  .color-shape.big.round {
+    border-radius: 75px;
+  }
+   
+  .color-shape.baby { background: red; }
+  .color-shape.blue { background: blue; }
+  .color-shape.yellow { background: yellow; }
+   
+  .color-shape.wide, .color-shape.big { width: 150px; }
+  .color-shape.tall, .color-shape.big { height: 150px; }
+</style>
+
+<script>
+  // external js: isotope.pkgd.js
+
+// init Isotope
+var $grid = $('.grid').isotope({
+  itemSelector: '.color-shape'
+});
+
+// store filter for each group
+var filters = {};
+
+$('.filters').on( 'click', '.button', function( event ) {
+  var $button = $( event.currentTarget );
+  // get group key
+  var $buttonGroup = $button.parents('.button-group');
+  var filterGroup = $buttonGroup.attr('data-filter-group');
+  // set filter for group
+  filters[ filterGroup ] = $button.attr('data-filter');
+  // combine filters
+  var filterValue = concatValues( filters );
+  // set filter for Isotope
+  $grid.isotope({ filter: filterValue });
+});
+
+// change is-checked class on buttons
+$('.button-group').each( function( i, buttonGroup ) {
+  var $buttonGroup = $( buttonGroup );
+  $buttonGroup.on( 'click', 'button', function( event ) {
+    $buttonGroup.find('.is-checked').removeClass('is-checked');
+    var $button = $( event.currentTarget );
+    $button.addClass('is-checked');
+  });
+});
+  
+// flatten object by concatting values
+function concatValues( obj ) {
+  var value = '';
+  for ( var prop in obj ) {
+    value += obj[ prop ];
+  }
+  return value;
+}
+
+</script>
+
+
+<div class="grid">
+</div>
+
+
+
+
+// init Isotope
+var $grid = $('.grid').isotope({
+  itemSelector: '.element-item',
+  layoutMode: 'fitRows',
+  getSortData: {
+    name: '.name',
+    symbol: '.symbol',
+    number: '.number parseInt',
+    category: '[data-category]',
+    weight: function( itemElem ) {
+      var weight = $( itemElem ).find('.weight').text();
+      return parseFloat( weight.replace( /[\(\)]/g, '') );
+    }
+  }
+});
+
+// filter functions
+var filterFns = {
+  // show if number is greater than 50
+  numberGreaterThan50: function() {
+    var number = $(this).find('.number').text();
+    return parseInt( number, 10 ) > 50;
+  },
+  // show if name ends with -ium
+  ium: function() {
+    var name = $(this).find('.name').text();
+    return name.match( /ium$/ );
+  }
+};
+
+// bind filter button click
+$('#filters').on( 'click', 'button', function() {
+  var filterValue = $( this ).attr('data-filter');
+  // use filterFn if matches value
+  filterValue = filterFns[ filterValue ] || filterValue;
+  $grid.isotope({ filter: filterValue });
+});
+
+// bind sort button click
+$('#sorts').on( 'click', 'button', function() {
+  var sortByValue = $(this).attr('data-sort-by');
+  $grid.isotope({ sortBy: sortByValue });
+});
+
+// change is-checked class on buttons
+$('.button-group').each( function( i, buttonGroup ) {
+  var $buttonGroup = $( buttonGroup );
+  $buttonGroup.on( 'click', 'button', function() {
+    $buttonGroup.find('.is-checked').removeClass('is-checked');
+    $( this ).addClass('is-checked');
+  });
+});
+
+
+<!--       FILTER BAR -->
+      <div class="filters">
+        <div class="ui-group">
+          <h3>Department</h3><br>
+          <div class="button-group js-radio-button-group" data-filter-group="color">
+            <button class="button is-checked" data-filter="">All</button>
+            <button class="button" data-filter=".red">Camera</button>
+            <button class="button" data-filter=".blue">Production</button>
+            <button class="button" data-filter=".yellow">Sound</button>
+          </div>
+        </div>
+
+        <div class="ui-group">
+          <h3>Role</h3><br>
+          <div class="button-group js-radio-button-group" data-filter-group="size">
+            <button class="button is-checked" data-filter="">All</button>
+            <button class="button" data-filter=".small">Director</button>
+            <button class="button" data-filter=".wide">Producer</button>
+            <button class="button" data-filter=".big">Set Decorator</button>
+            <button class="button" data-filter=".tall">Sound Mixer</button>
+          </div>
+        </div>
+
+        <div class="ui-group">
+          <h3>Location</h3><br>
+          <div class="button-group js-radio-button-group" data-filter-group="shape">
+            <button class="button is-checked" data-filter="">All</button>
+            <button class="button" data-filter=".round"> > 5 miles</button>
+            <button class="button" data-filter=".square"> > 15 miles</button>
+          </div>
+        </div>
+
+
+
+
+<style>
+    * { box-sizing: border-box; }
+
+  body {
+    font-family: sans-serif;
+  }
+
+  /* ---- button ---- */
+
+  .button {
+    display: inline-block;
+    padding: 0.5em 1.0em;
+    background: #EEE;
+    border: none;
+    border-radius: 7px;
+    background-image: linear-gradient( to bottom, hsla(0, 0%, 0%, 0), hsla(0, 0%, 0%, 0.2) );
+    color: #222;
+    font-family: sans-serif;
+    font-size: 16px;
+    text-shadow: 0 1px white;
+    cursor: pointer;
+  }
+
+  .button:hover {
+    background-color: #8CF;
+    text-shadow: 0 1px hsla(0, 0%, 100%, 0.5);
+    color: #222;
+  }
+
+  .button:active,
+  .button.is-checked {
+    background-color: #28F;
+  }
+
+  .button.is-checked {
+    color: white;
+    text-shadow: 0 -1px hsla(0, 0%, 0%, 0.8);
+  }
+
+  .button:active {
+    box-shadow: inset 0 1px 10px hsla(0, 0%, 0%, 0.8);
+  }
+
+  /* ---- button-group ---- */
+
+  .button-group:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  .button-group .button {
+    float: left;
+    border-radius: 0;
+    margin-left: 0;
+    margin-right: 1px;
+  }
+
+  .button-group .button:first-child { border-radius: 0.5em 0 0 0.5em; }
+  .button-group .button:last-child { border-radius: 0 0.5em 0.5em 0; }
+
+  /* ---- isotope ---- */
+
+  .grid {
+    background: #EEE;
+    max-width: 1200px;
+  }
+
+  /* clear fix */
+  .grid:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  /* ui group */
+
+  .ui-group {
+    display: inline-block;
+  }
+
+  .ui-group h3 {
+    display: inline-block;
+    margin-right: 0.2em;
+    font-size: 16px;
+  }
+
+  .ui-group .button-group {
+    display: inline-block;
+    margin-right: 20px;
+  }
+
+  /* color-shape */
+
+  .color-shape {
+    width: 70px;
+    height: 70px;
+    margin: 5px;
+    float: left;
+  }
+   
+  .color-shape.round {
+    border-radius: 35px;
+  }
+   
+  .color-shape.big.round {
+    border-radius: 75px;
+  }
+   
+  .color-shape.red { background: red; }
+  .color-shape.blue { background: blue; }
+  .color-shape.yellow { background: yellow; }
+   
+  .color-shape.wide, .color-shape.big { width: 150px; }
+  .color-shape.tall, .color-shape.big { height: 150px; }
+</style>
+
+<script>
+  // external js: isotope.pkgd.js
+
+// init Isotope
+var $grid = $('.grid').isotope({
+  itemSelector: '.color-shape'
+});
+
+// store filter for each group
+var filters = {};
+
+$('.filters').on( 'click', '.button', function( event ) {
+  var $button = $( event.currentTarget );
+  // get group key
+  var $buttonGroup = $button.parents('.button-group');
+  var filterGroup = $buttonGroup.attr('data-filter-group');
+  // set filter for group
+  filters[ filterGroup ] = $button.attr('data-filter');
+  // combine filters
+  var filterValue = concatValues( filters );
+  // set filter for Isotope
+  $grid.isotope({ filter: filterValue });
+});
+
+// change is-checked class on buttons
+$('.button-group').each( function( i, buttonGroup ) {
+  var $buttonGroup = $( buttonGroup );
+  $buttonGroup.on( 'click', 'button', function( event ) {
+    $buttonGroup.find('.is-checked').removeClass('is-checked');
+    var $button = $( event.currentTarget );
+    $button.addClass('is-checked');
+  });
+});
+  
+// flatten object by concatting values
+function concatValues( obj ) {
+  var value = '';
+  for ( var prop in obj ) {
+    value += obj[ prop ];
+  }
+  return value;
+}
+
+</script>
+
+
+
+
+{
+          label: ["Project Three"],
+          backgroundColor: "#bf81d3",
+          borderColor: "#bf81d3",
+          data: [{
+            x: 90,
+            y: 5.921,
+            r: 15
+          }]
+        }
+
+
+{% for proj in user_projects %}
+                      '{{proj.title|tojson|safe}}',
+                    {% endfor %}
+
+
+
+
+
+
+
+
+
+
+

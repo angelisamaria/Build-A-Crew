@@ -1,0 +1,111 @@
+{% extends '/base/base2.html' %}
+    {% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+
+
+<!-- Greeting User -->
+<div class="container align-items-center">
+  <div class="row align-items-center">
+    <div class="col">
+  <h1>Hello {{ user.fname }}</h1>
+    </div>
+  </div>
+  <div class="row align-items-center">
+    <div class="col text-center">
+      <div class="border-10 smalldiv">
+          <h5>{{ today_day }}, {{ today_month }} {{ today_date }}</h5>
+          <h2><i class="{{ icon }}"></i> {{current_temp }}&#176; F</h2> 
+          <h5>{{ current_summary }}</h5>
+        </p>
+      </div>
+      <div class="border-10 smalldiv">
+        <h5># Crewmembers you're working with:</h5><br>
+      <h1>{{ crewed }}</h1>
+      </div>
+    </div>
+    {% if numprojects > 0 %}
+    <div class="col-5 border-10 charty">
+      <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+    {% else %}
+    <div class="col-5 border-10 charty">
+     <h3>No projects yet.</h3>
+    </div>
+      
+    {% endif %}
+    
+    <div class="col">
+    <div class="border-10 todo">
+      <p><h1>To Do</h1><br>
+      <ul>
+        {% if numprojects == 0%}
+        <li><a href="/projects"><h5>Add Project</h5></a></li>
+        {% else %}
+        <li><h5><s>Add Project</s></h5></li>
+        {% endif %}
+        <br>
+        {% if crewed == 0%}
+        <li><a href="/projects"><h5>Add Crewmember</h5></a></li>
+        {% else %}
+        <li><h5><s>Add Crewmember</s></h5></li>
+        {% endif %}
+      </ul>
+      </p>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+<!-- chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
+
+<!-- chart.js -->
+<script>"use strict"
+    
+    new Chart(document.getElementById("myChart"), {
+        type: 'bubble',
+        data: {
+          labels: "Projects",
+          datasets: [
+        {
+          label: ['Philadelphia'],
+          backgroundColor: "#f8ea50",
+          borderColor: "#f8ea50",
+          data: [{
+            x: {{ crewed }},
+            y: 0,
+            r: 15
+          }]
+        }
+      ]
+    },
+        options: {
+          title: {
+            display: true,
+            text: 'Project Progress'
+          }, scales: {
+            xAxes: [{ 
+              scaleLabel: {
+                display: true,
+                labelString: "# Crewmembers"
+              }
+            }],
+            yAxes: [{ 
+              scaleLabel: {
+                display: true,
+                labelString: "% Completed"
+              }
+            }]
+          }
+        }
+    });
+  </script>
+
+
+{% endblock %}
+
+

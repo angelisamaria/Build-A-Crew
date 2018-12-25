@@ -1,0 +1,67 @@
+{% extends '/base/base2.html' %}
+    {% block title %}Callsheet{% endblock %}
+{% block content %}
+
+<!-- Navigation -->
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
+    <li class="breadcrumb-item"><a href="/projects/{{ specific_project.project_id }}">{{ specific_project.title }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Call Sheets: {{ specific_project.title }}</li>
+  </ol>
+</nav>
+
+<link rel="stylesheet" link="static/css/callsheets.css">
+
+<!-- Callsheets -->
+<div class="container">
+  <div class="row mx-auto">
+  {% for callsheet in callsheets %}
+    <div class="card mx-auto border-10" onclick="window.location = '/callsheets/{{ specific_project.project_id }}/{{ callsheet.callsheet_id }}'" style="width: 15rem;">
+      <h1 class="card-title">Day {{ callsheet.day_number }}</h1><br>
+      {{ callsheet.shoot_date }}<br>
+    </div>
+    {% endfor %}
+
+
+
+
+<!-- Add Callsheet Button -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">Add Callsheet</button></div></div>
+<!-- Add Callsheet Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add a Callsheet</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/callsheets/{{ specific_project.project_id }}" method="POST" role="form">
+          <div class="form-group">
+            <label for="searchterm" class="col-sm-2 control-label"></label>
+            <div class="col-sm-10">
+            Shoot Day # <input type="text" name="day_number" required><br>
+            Shoot Date <input type="text" name="shoot_date" required><br>
+            Lunch Time: <input type="text" name="lunch_time" required><br>
+            Lunch Location: <input type="text" name="lunch_loc" required><br>
+            Hospital Name <input type="text" name="hos_name" required><br>
+            Hospital Address: <input type="text" name="hos_add" required><br>
+            Parking Address: <input type="text" name="parking" required><br>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div></div>
+
+
+{% endblock %}
