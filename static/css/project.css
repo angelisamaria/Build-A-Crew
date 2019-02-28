@@ -91,10 +91,6 @@ color:white;
 }
 
 .sidebox {
-    
-}
-
-.sidebox {
 border-style:solid;
 padding:1px 5px;
 width:100%;
@@ -111,14 +107,11 @@ color:#61c0a4;
     background-color:#3d4850 !important;
     font-color:#2afabd;
 
-
 }
 
 .body {
     padding-left: 1000px;
 }
-
-
 
 .me {
     padding-left:20px;

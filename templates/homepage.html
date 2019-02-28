@@ -1,36 +1,33 @@
-
-<!-- Will prompt user to create a profile or login
-If a user is already logged in
-They will be redirected to their dashboard
- -->
-
-
 {% extends '/base/base.html' %}
 
     {% block title %}Build a Crew{% endblock %}
 
 {% block content %} 
 
-<link rel="stylesheet" type="text/css" href="static/css/homepage.css">
+<link rel="stylesheet" type="text/css" href="../static/css/homepage.css">
 
 <div class="container">
   <div class="row">
-    {% for user in users %}
-    <div class="rounded myleftyleft" onmouseover="this.innerHTML='{{ user.fname }}';"
-            onmouseout="this.innerHTML='{{ user.role }}';"></div>
-  {% endfor %}
-  <div class="rounded formlinks" data-toggle="modal" data-target="#loginModal">Login</div>
-    <div class="rounded formlinks" data-toggle="modal" data-target="#registerModal">Register</div>
-</div>
-  <div class="row">
-    <div class="col"><h1>Build a Crew</h1></div>
+      <div id="bottom">
+          {% for user in users %}
+        <div class="rounded myleftyleft" onmouseover="this.innerHTML='{{ user.fname }}';"
+          onmouseout="this.innerHTML='{{ user.role }}';"></div>
+        {% endfor %}
+        <div class="rounded formlinks" data-toggle="modal" data-target="#loginModal">Login</div>
+        <div class="rounded formlinks" data-toggle="modal" data-target="#registerModal">Register</div>
+        </div>
+        <div id="top">
+            <div class="col">
+              <h1>Build a Crew</h1>
+              <p>Login, Register, etc.</p>
+            </div>
+        </div>
   </div>
   <div class="row">
     
+    
   </div>
- </div>
 </div>
-
 
 <!-- LOGIN MODAL -->
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
