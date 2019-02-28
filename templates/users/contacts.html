@@ -2,11 +2,15 @@
     {% block title %}Contacts{% endblock %}
 {% block content %}
 
-<h1>Contacts</h1>
+
 
 
 <div class="container">
-  <div class="row mx-auto">
+  <div class="row mx-10">
+      <h1>Contacts</h1>
+  </div>
+  <div class="row mx-10">
+    
 {% for user in users %}
 <div class="card mx-auto border-10" onclick="window.location = '/user/{{ user.user_id }}'" style="width: 15rem;">
   <div class="card-body">

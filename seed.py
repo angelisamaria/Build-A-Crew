@@ -5,7 +5,7 @@ from sqlalchemy import func
 
 from model import User, Project, Schedule, Location, Callsheet, connect_to_db, db
 from server import app
-from faker import Faker
+from faker import Faker as faker
 import random
 import requests
 

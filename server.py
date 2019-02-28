@@ -1,21 +1,19 @@
 from jinja2 import StrictUndefined
-
 from flask import (Flask, render_template, redirect, request, flash,
                    session, jsonify)
-
 from flask_debugtoolbar import DebugToolbarExtension
 
+# initialize server
 from model import User, Project, Crew, Callsheet, Schedule, Location, connect_to_db, db
 
+
+# for darksky API
 import time
-
 from datetime import date, datetime
-
 import requests
-
 import random
 
-
+# DarkSkyAPI variables for User Dashboard
 days = {0: 'Sunday',
                 1: 'Monday', 
                 2: 'Tuesday', 
@@ -48,7 +46,7 @@ app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
 def index():
-    """ Landing page."""
+    """ Homepage, will prompt users to login or register."""
     
     if 'user_id' in session:
         user = User.query.get(session['user_id'])
@@ -90,11 +88,9 @@ def registration_form():
 
         return redirect('/dashboard')
 
-
-# GET USERS
 @app.route('/getusers', methods=['GET'])
 def view_users():
-    """ Users JSON"""
+    """ View all users. """
 
     users = User.query.all()
     allUsers = {}
@@ -106,12 +102,14 @@ def view_users():
         allUsers[i]['user_id'] = user.user_id
     return jsonify(results=allUsers)
 
-
+# user login
 @app.route('/login', methods=['GET', 'POST'])
 def log_in():
+    """ User login. """
 
     if request.method == 'GET':
         return render_template("/users/login.html")
+
     else:
         email = request.form.get("email")
         pw = request.form.get("pw")
@@ -131,39 +129,38 @@ def log_in():
 
 @app.route('/logout')
 def log_out():
-
+    """ User logout. """
     del session['user_id']
     flash('You are logged out.')
 
     return redirect('/')
 
-
 @app.route('/dashboard')
 def user_dashboard():
     """User's Dashboard Page."""
 
+    # squalchemy from Users Projects, and Crews tables
     user = User.query.get(session['user_id'])
     user_projects = Project.query.filter_by(user_id=session['user_id'])
     specific_project = Project.query.filter_by(user_id=session['user_id']).first()
     numprojects = Project.query.filter_by(user_id=session['user_id']).count()
     crewed = Project.query.filter_by(user_id=session['user_id']).join(Crew, Crew.project_id == Project.project_id).count()
 
-
+    # datetime for user view
     now = datetime.now()
     theday = now.today().weekday()
-    
     date = now.day
+
     if 10 <= date % 100 < 20:
         today_date = str(date) + 'th'
     else:
        today_date = str(date) + {1 : 'st', 2 : 'nd', 3 : 'rd'}.get(date % 10, "th")
 
-    print(today_date)
-    month = now.month
-    today_day = days[theday]
-    today_month = months[month]
 
     
+
+
+    # DarkSkyAPI
     r = requests.get("https://api.darksky.net/forecast/0b4f58622393c96c8910335b6428dda2/33.993396,-118.465193")
     weather = r.json()
     currently = weather['currently']
@@ -171,8 +168,16 @@ def user_dashboard():
     current_icon = currently['icon'] # clear-sky 
     current_summary = currently['summary'] # clear skies
     icons = {'clear-day': "fas fa-sun", 'clear-night': "fas fa-moon", 'rain': "fas fa-umbrella",'snow': "fas fa-snowflake",'fog': "fas fa-cloud",'wind': "fas fa-wind",'cloudy': "fas fa-cloud",'partly-cloudy-day': "fas fa-cloud-sun",'partly-cloudy-night': "fas fa-cloud-moon",'hail': "fas fa-cloud-showers-heavy",'thunderstorm': "fas fa-bolt",'tornado': "fas fa-umbrella" }
-    icon = icons[current_icon]
-    
+    icon = icons[current_icon] # fas fa-sun
+    ts = int(currently['time'])
+    month = now.month
+    today_day = days[theday]
+    today_month = months[month]
+    # if you encounter a "year is out of range" error the timestamp
+    # may be in milliseconds, try `ts /= 1000` in that case
+    timeUnix = datetime.utcfromtimestamp(ts).strftime('%d/%m/%y')
+
+
     return render_template("/projects/dashboard.html", 
                             user=user, 
                             numprojects=numprojects, 
@@ -184,16 +189,17 @@ def user_dashboard():
                             today_month=today_month,
                             today_date=today_date,
                             icon=icon,
+                            timeUnix=timeUnix,
                             crewed=crewed,
                             specific_project=specific_project)
 
-
 @app.route('/projects')
 def user_projects():
-    """ User's projects. """
+    """ View all user's owned projects. """
 
     user_projects = Project.query.filter_by(user_id=session['user_id'])
     crewmembers = Crew.query.all()
+    numprojects = Project.query.filter_by(user_id=session['user_id']).count()
     crew = Crew.query.join(Project, Crew.project_id==Project.project_id).join(User, Project.user_id==session['user_id'])
     numcrew = Crew.query.join(Project, Crew.project_id==Project.project_id).join(User, Project.user_id==session['user_id']).count()
     callsheets = Callsheet.query.all()
@@ -204,20 +210,21 @@ def user_projects():
                             crew=crew,
                             callsheets=callsheets,
                             usercallsheets=usercallsheets,
-                            numcrew=numcrew)
+                            numcrew=numcrew,
+                            crewmembers=crewmembers,
+                            numprojects=numprojects)
 
 @app.route('/projects/<project_id>')
 def view_project(project_id):
-    """ View projet details."""
+    """ View details of a specific project."""
     specific_project = Project.query.get(project_id)
     crew = Crew.query.filter_by(project_id=project_id)
 
     return render_template("/projects/project_id.html", specific_project=specific_project, crew=crew)
 
-
 @app.route('/newproject', methods = ['GET', 'POST'])
 def new_user_project():
-    """ User's projects. """
+    """ User can add a new project. """
 
     user_id = session['user_id']
 
@@ -242,7 +249,6 @@ def new_user_project():
 
         return redirect("/projects")
 
-
 @app.route('/user', methods=['GET', 'POST'])
 def user():
     """ User view of their private profile. """
@@ -261,7 +267,6 @@ def user():
    
     else:
         return render_template("homepage.html")
-
 
 @app.route('/user/<user_id>')
 def profile(user_id):
@@ -304,26 +309,10 @@ def all_callsheets(project_id):
     
     return render_template("/projects/callsheets.html", callsheets=callsheets, 
                                 specific_project=specific_project, 
-                                user_projects=user_projects)
+                                user_projects=user_projects,
+                                users=users)
 
 
-@app.route('/addingauser',  methods=['POST'])
-def adding_user(project_id):
-    """ TEST ROUTE TO ADD A USER VIA AJAX."""
-
-
-    request.args.get()
-
-    new_user = User(email=user_email, 
-                            pw=pw,
-                            fname=fname,
-                            lname=lname,
-                            zipcode=zipcode,
-                            linkedin=linkedin,
-                            role=role)
-                            
-    db.session.add(new_user)
-    db.session.commit()
 
 
 @app.route('/callsheets/<project_id>/<callsheet_id>')
@@ -396,8 +385,7 @@ def view_contacts():
 @app.route('/crew/<project_id>')
 def project_crew(project_id):
     """ Crew Page"""
-
-
+    
     specific_project = Project.query.get(project_id)
     user_projects = Project.query.filter_by(user_id=session['user_id'])
     crew = Crew.query.join(Project, Crew.project_id==project_id).join(User, Project.user_id==session['user_id']).all()
@@ -437,6 +425,7 @@ def project_crew(project_id):
 def view_crew():
     """ Crew JSON"""
 
+    # squalchemy from Crews table
     crew = Crew.query.all()
 
     projectCrew = {}

@@ -3,19 +3,17 @@
 
 {% block content %}
 
-
-
-<!-- Greeting User -->
 <div class="container align-items-center">
   <div class="row align-items-center">
     <div class="col">
+<!-- Greeting  -->
   <h1>Hello {{ user.fname }}</h1>
     </div>
   </div>
   <div class="row align-items-center">
     <div class="col text-center">
       <div class="border-10 smalldiv">
-          <h5>{{ today_day }}, {{ today_month }} {{ today_date }}</h5>
+          <h5>{{ today_day }}, {{ today_month }} {{ today_date }} {{ timeUnix }}</h5>
           <h2><i class="{{ icon }}"></i> {{current_temp }}&#176; F</h2> 
           <h5>{{ current_summary }}</h5>
         </p>
@@ -25,6 +23,7 @@
       <h1>{{ crewed }}</h1>
       </div>
     </div>
+    <!-- Project Progress with ChartJS -->
     {% if numprojects > 0 %}
     <div class="col-5 border-10 charty">
       <canvas id="myChart" width="400" height="400"></canvas>

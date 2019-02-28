@@ -10,8 +10,14 @@
   </ol>
 </nav>
 
+
 <div class="container">
 <a href='/newproject'>[ + Project ]</a><br>
+{% if numprojects == 0 %}
+<div class="col">
+  <h1>No Projects yet</h1>
+</div>
+{% endif %}
 <div class="col">
 {% for project in user_projects %}
 <div class="media border-10">
