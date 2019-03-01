@@ -157,9 +157,6 @@ def user_dashboard():
        today_date = str(date) + {1 : 'st', 2 : 'nd', 3 : 'rd'}.get(date % 10, "th")
 
 
-    
-
-
     # DarkSkyAPI
     r = requests.get("https://api.darksky.net/forecast/0b4f58622393c96c8910335b6428dda2/33.993396,-118.465193")
     weather = r.json()
