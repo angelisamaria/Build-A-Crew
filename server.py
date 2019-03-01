@@ -40,7 +40,6 @@ app = Flask(__name__)
 
 # Required to use Flask sessions and the debug toolbar
 app.secret_key = "ABC"
-
 app.jinja_env.undefined = StrictUndefined
 
 
@@ -102,7 +101,6 @@ def view_users():
         allUsers[i]['user_id'] = user.user_id
     return jsonify(results=allUsers)
 
-# user login
 @app.route('/login', methods=['GET', 'POST'])
 def log_in():
     """ User login. """
@@ -337,7 +335,7 @@ def view_callsheet(project_id, callsheet_id):
                                 specific_callsheet=specific_callsheet, user=user, crew=crew, 
                                 current_temp=current_temp, current_icon=current_icon, 
                                 current_summary=current_summary, schedule=schedule,
-                                location=location)
+                                location=location, user_projects=user_projects, callsheet=callsheet)
 
 
 @app.route('/contacts')

@@ -1,3 +1,10 @@
+html, body {
+  height:100%;
+  width:100%;
+  margin:0;
+  padding:0;
+}
+
 .myleftyleft{
     width: 100px;
     height: 100px;
@@ -38,24 +45,18 @@
     background-color:#61c0a4;
 }
 
+.col {
+  text-align: center;
+  padding: 10px;
+  margin: 20px;
+}
 
 
-div {
-    position: absolute;
-    width: 100%;
-    height: 50%;
-  }
-  
-  #bottom {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -100;
-    background-color: blue;
-  }
-  
-  #top {
-    top: 150%;
-    left: 50%;
-    background-color: red;
-  }
+.register {
+  background-color:#3d4850;
+
+}
+
+.modal {
+top: 20%;
+}

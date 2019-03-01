@@ -13,9 +13,9 @@
   <div class="row align-items-center">
     <div class="col text-center">
       <div class="border-10 smalldiv">
-          <h5>{{ today_day }}, {{ today_month }} {{ today_date }} {{ timeUnix }}</h5>
+          <h5><strong>{{ today_day }}, {{ today_month }} {{ today_date }}</strong></h5>
           <h2><i class="{{ icon }}"></i> {{current_temp }}&#176; F</h2> 
-          <h5>{{ current_summary }}</h5>
+          <h5><em>{{ current_summary }}</em></h5>
         </p>
       </div>
       <div class="border-10 smalldiv">
@@ -31,6 +31,7 @@
     {% else %}
     <div class="col-5 border-10 charty">
      <h3>No projects yet.</h3>
+     <p><em>Add a new project to start your chart.</em></p>
     </div>
       
     {% endif %}
@@ -50,6 +51,8 @@
         {% else %}
         <li><h5><s>Add Crewmember</s></h5></li>
         {% endif %}
+        <br>
+        <li><h5>[New To-do Item]</h5></li>
       </ul>
       </p>
     </div>
