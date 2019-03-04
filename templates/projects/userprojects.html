@@ -29,7 +29,7 @@
   <p>{{ project.proj_desc }}</p>
   </div>
   <div class="col">
-  <a href="#{{ project.project_id }}" data-toggle="collapse">[Expand]</a>
+  <a href="#{{ project.project_id }}" data-toggle="collapse">[Expand]</a><a href="#edit"> [Edit]</a>
   </div>
   <div id="{{ project.project_id }}" class="collapse me">
   {% if project.status == True %}<h4>Details</h4><p>Status: <span style="color:green"><b>Open</b></span></p>
@@ -63,14 +63,8 @@
   </div>
   </div>
   </div>
-
   {% endfor %}
-
-
-  
   </div>
-  </div>
-
-
+</div>
 
 {% endblock %}

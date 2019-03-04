@@ -147,6 +147,7 @@ def user_dashboard():
     # datetime for user view
     now = datetime.now()
     theday = now.today().weekday()
+    print(theday)
     date = now.day
 
     if 10 <= date % 100 < 20:
@@ -168,9 +169,6 @@ def user_dashboard():
     month = now.month
     today_day = days[theday]
     today_month = months[month]
-    # if you encounter a "year is out of range" error the timestamp
-    # may be in milliseconds, try `ts /= 1000` in that case
-    timeUnix = datetime.utcfromtimestamp(ts).strftime('%d/%m/%y')
 
 
     return render_template("/projects/dashboard.html", 
@@ -184,7 +182,6 @@ def user_dashboard():
                             today_month=today_month,
                             today_date=today_date,
                             icon=icon,
-                            timeUnix=timeUnix,
                             crewed=crewed,
                             specific_project=specific_project)
 
@@ -209,13 +206,13 @@ def user_projects():
                             crewmembers=crewmembers,
                             numprojects=numprojects)
 
-@app.route('/projects/<project_id>')
-def view_project(project_id):
-    """ View details of a specific project."""
-    specific_project = Project.query.get(project_id)
-    crew = Crew.query.filter_by(project_id=project_id)
+# @app.route('/projects/<project_id>')
+# def view_project(project_id):
+#     """ View details of a specific project."""
+#     specific_project = Project.query.get(project_id)
+#     crew = Crew.query.filter_by(project_id=project_id)
 
-    return render_template("/projects/project_id.html", specific_project=specific_project, crew=crew)
+#     return render_template("/projects/project_id.html", specific_project=specific_project, crew=crew)
 
 @app.route('/newproject', methods = ['GET', 'POST'])
 def new_user_project():
@@ -348,35 +345,6 @@ def view_contacts():
     return render_template("users/contacts.html", users=users, user_one=user_one)
 
 
-# DONT DELETE
-# @app.route('/crew/<project_id>', methods=['GET', 'POST'])
-# def my_original_crew_route(project_id):
-#     """ Crew Page"""
-    
-#     if request.method == 'POST':
-#         project_id = project_id
-#         user_id = request.form.get("user_id")
-#         role = request.form.get("role")
-#         crewMember = Crew(project_id=project_id, 
-#                             user_id=user_id,
-#                             role=role)
-#         db.session.add(crewMember)
-#         db.session.commit()
-
-
-
-#     specific_project = Project.query.get(project_id)
-#     user_projects = Project.query.filter_by(user_id=session['user_id'])
-#     crew = Crew.query.filter_by(project_id=project_id)
-#     crews = Crew.query.all()
-#     users = User.query.all()
-#     first_usr = User.query.first()
-
-#     return render_template("/crews/crew.html", 
-#                             specific_project=specific_project, user_projects=user_projects, 
-#                             crew=crew, users=users, first_usr=first_usr)
-
-# EDITED VERSION
 @app.route('/crew/<project_id>')
 def project_crew(project_id):
     """ Crew Page"""
@@ -391,31 +359,6 @@ def project_crew(project_id):
                                 crew=crew, users=users)
 
 
-    
-        
-
-# POST CREW
-# @app.route('/addcrew', methods=['POST'])
-# def add_crew():
-#     """ Crew Page"""
-    
-
-#     fullname= request.form.get("fullname")
-#     role = request.form.get("userrole")
-#     role = request.form.get("userid")
-#     project_id = project_id
-#     new_crew = Crew(fullname=fullname, 
-#                         project_id=project_id,
-#                         role=role)
-                        
-#     db.session.add(new_crew)
-#     db.session.commit()
-
-#     return redirect('/crew/<project_id>')
-
-
-
-# # GET CREW
 @app.route('/getcrew', methods=['GET'])
 def view_crew():
     """ Crew JSON"""
@@ -449,6 +392,6 @@ if __name__ == "__main__":
     connect_to_db(app)
     db.create_all()
 
-    # DebugToolbarExtension(app)
+    DebugToolbarExtension(app)
 
     app.run(host="0.0.0.0")
