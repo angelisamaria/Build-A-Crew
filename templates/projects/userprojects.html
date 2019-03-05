@@ -20,49 +20,49 @@
   </div>
   {% endif %}
   <div class="col">
-  {% for project in user_projects %}
-  <div class="media border-10">
-  <img class="mr-0 rounded" src="{{ project.proj_img }}" alt="{{ project.title }}">
-  <div class="media-body">
-  <div class="col">
-  <h5 class="mt-3">{{ project.title }}</h5>
-  <p>{{ project.proj_desc }}</p>
-  </div>
-  <div class="col">
-  <a href="#{{ project.project_id }}" data-toggle="collapse">[Expand]</a><a href="#edit"> [Edit]</a>
-  </div>
-  <div id="{{ project.project_id }}" class="collapse me">
-  {% if project.status == True %}<h4>Details</h4><p>Status: <span style="color:green"><b>Open</b></span></p>
-  {% else %} <h4>Status:</h4> <h5 style="color:red">Closed</h5>
-  {% endif %}
-  <h4>Crew</h4>
-  {% if numcrew == 0 %}
-    <p>You have no crew yet.</p>
-    <a href="/crew/{{ project.project_id }}" class="btn btn-6" role="button" aria-disabled="true"><i class="fas fa-users"></i></i> Add Crew</a><br>
-  {% endif %}
+    {% for project in user_projects %}
+    <div class="media border-10">
+      <img class="mr-0 rounded" src="{{ project.proj_img }}" alt="{{ project.title }}">
+      <div class="media-body">
+      <div class="col">
+      <h5 class="mt-3">{{ project.title }}</h5>
+      <p>{{ project.proj_desc }}</p>
+      </div>
+      <div class="col">
+      <a href="#{{ project.project_id }}" data-toggle="collapse">[Expand]</a><a href="#edit"> [Edit]</a>
+      </div>
+      <div id="{{ project.project_id }}" class="collapse me">
+      {% if project.status == True %}<h4>Details</h4><p>Status: <span style="color:green"><b>Open</b></span></p>
+      {% else %} <h4>Status:</h4> <h5 style="color:red">Closed</h5>
+      {% endif %}
+      <h4>Crew</h4>
+      {% if numcrew == 0 %}
+        <p>You have no crew yet.</p>
+        <a href="/crew/{{ project.project_id }}" class="btn btn-6" role="button" aria-disabled="true"><i class="fas fa-users"></i></i> Add Crew</a><br>
+      {% endif %}
 
-  {% if numcrew != 0 %}
-    {% for crewmember in crew %}
-      <a href=""><img border="0" class="profilepic" alt="" src="https://randomuser.me/api/portraits/thumb/women/66.jpg"></a>
-    {% endfor %}
-      <a href="/crew/{{ project.project_id }}" class="btn btn-6" role="button" aria-disabled="true"><i class="fas fa-users"></i></i> View All</a><br>
-  {% endif %}
+      {% if numcrew != 0 %}
+        {% for crewmember in crew %}
+          <a href=""><img border="0" class="profilepic" alt="" src="https://randomuser.me/api/portraits/thumb/women/66.jpg"></a>
+        {% endfor %}
+          <a href="/crew/{{ project.project_id }}" class="btn btn-6" role="button" aria-disabled="true"><i class="fas fa-users"></i></i> View All</a><br>
+      {% endif %}
 
-  <h4>Callsheets</h4>
-    {% if usercallsheets == 0 %}
-    <p>You have no callsheets.</p>
-    <a href="/callsheets/{{ project.project_id }}" class="btn btn-6" role="button" aria-disabled="true"><i class="fas fa-copy"></i> Add Callsheet</a><br>
-    {% endif %}
-    {% if usercallsheets > 0 %}
-      {% for callsheet in callsheets %}
-        <a href="/callsheets/{{ project.project_id }}/{{ callsheet.callsheet_id }}" class="btn btn-6" role="button" aria-disabled="true"><i class="fas fa-file"></i> Day {{ callsheet.day_number }} - {{ callsheet.shoot_date }}</a><br>
-        <a href="/callsheets/{{ project.project_id }}" class="btn btn-6" role="button" aria-disabled="true"><i class="fas fa-copy"></i> View All</a><br>
-      {% endfor %}
-    {% endif %}
+      <h4>Callsheets</h4>
+        {% if usercallsheets == 0 %}
+        <p>You have no callsheets.</p>
+        <a href="/callsheets/{{ project.project_id }}" class="btn btn-6" role="button" aria-disabled="true"><i class="fas fa-copy"></i> Add Callsheet</a><br>
+        {% endif %}
+        {% if usercallsheets > 0 %}
+          {% for callsheet in callsheets %}
+            <a href="/callsheets/{{ project.project_id }}/{{ callsheet.callsheet_id }}" class="btn btn-6" role="button" aria-disabled="true"><i class="fas fa-file"></i> Day {{ callsheet.day_number }} - {{ callsheet.shoot_date }}</a><br>
+            <a href="/callsheets/{{ project.project_id }}" class="btn btn-6" role="button" aria-disabled="true"><i class="fas fa-copy"></i> View All</a><br>
+          {% endfor %}
+        {% endif %}
 
-  </div>
-  </div>
-  </div>
+      </div>
+      </div>
+    </div>
   {% endfor %}
   </div>
 </div>

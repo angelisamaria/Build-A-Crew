@@ -305,8 +305,6 @@ def all_callsheets(project_id):
                                 users=users)
 
 
-
-
 @app.route('/callsheets/<project_id>/<callsheet_id>')
 def view_callsheet(project_id, callsheet_id):
     """ User's contact list."""
@@ -363,7 +361,6 @@ def project_crew(project_id):
 def view_crew():
     """ Crew JSON"""
 
-    # squalchemy from Crews table
     crew = Crew.query.all()
 
     projectCrew = {}
