@@ -10,13 +10,13 @@ Build a crew is a place for Video Producers to manage their projects, crewmember
 * [Tech Stack](#tech-stack)
 * [Setup and Installation](#setup)
 * [Usage](#usage)
-* [Version 2.0](#version2point0)
+* [Version 2.0](#version)
 
 ## <a name="tech-stack"></a>Tech Stack
 
 * __Frontend:__ HTML5, CSS3, JavaScript, Bootstrap, Jinja, jQuery
 * __Backend:__ Python, Flask, PostgreSQL, SQLAlchemy
-* __APIs:__ DarkSky
+* __API:__ DarkSky
 
 
 ## <a name="installation"></a>Setup/Installation
@@ -62,18 +62,22 @@ $ python3 server.py
 ## <a name="usage"></a> Usage
 
 ### Step 1: Create profile
-Users create a profile with basic information to log in and track their projects.
+* Register via landing page
 
 ### Step 2: Create a project
-Creating a project is simple and lives in their user dashboard.
+* Create new project via To-Do list
+* Add additional projects via Projects page > [ + Project ]
 
 ### Step 3: Add crewmembers
-Using the Jquery UI library's Draggable and Sortable, Producers and drag and drop users from the user table directly into the crews table via AJAX. Each users name, role and image are shown.
+* Drag and drop users into Crew for your specific project
 
 ### Step 4: Dashboard
-Users can view their project progress in the dashboard, their to-do list based on SQLAlchemy queries that quantify their project data. They are also given a visual representation of their project progress via Chart.js.
+* Add additional items to To-Do list
+* View # crewmembers you are working with
+* View weather with DarkSky API based on your location
+* View Chart.js data visualizing your projects & crew
 
-## <a name="future"></a> Next Steps - Version 2.0
+## <a name="version"></a> Next Steps - Version 2.0
 * User-to-user interaction
 * Exporting callsheets as PDF
 * Calendar invites
