@@ -14,10 +14,9 @@ Build a crew is a place for Video Producers to manage their projects, crewmember
 
 ## <a name="tech-stack"></a>Tech Stack
 
-__Frontend:__ HTML5, CSS3, JavaScript, Bootstrap, Jinja, jQuery
-__Backend:__ Python, Flask, PostgreSQL, SQLAlchemy
-__APIs:__ DarkSky
-__Testing:__ Selenium
+* __Frontend:__ HTML5, CSS3, JavaScript, Bootstrap, Jinja, jQuery
+* __Backend:__ Python, Flask, PostgreSQL, SQLAlchemy
+* __APIs:__ DarkSky
 
 
 ## <a name="installation"></a>Setup/Installation
@@ -44,19 +43,19 @@ Install dependencies:
 ```
 $ pip install -r BuildaCrew/requirements.txt
 ```
-Create database 'buildacrew'.
+Create database:
 ```
 $ createdb buildacrew
 ```
-Create your database tables.
+Build database tables:
 ```
 $ python3 models.py
 ```
-Fill database with seed file.
+Fill database with seed file:
 ```
 $ python3 seed.py
 ```
-Run the app from the command line.
+Run the app via command line:
 ```
 $ python3 server.py
 ```
