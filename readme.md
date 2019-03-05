@@ -21,9 +21,7 @@ Build a crew is a place for Video Producers to manage their projects, crewmember
 
 ## <a name="installation"></a>Setup/Installation
 
-#### Requirements:
-- PostgreSQL
-- Python 3.6
+Please be sure you have __Python 3.6__ and __PostgreSQL__ downloaded before you clone the repository.
 
 To run Build a Crew on your local computer, please follow the below steps:
 
