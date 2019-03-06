@@ -39,7 +39,7 @@ $ source env/bin/activate
 ```
 Install dependencies:
 ```
-$ pip install -r BuildaCrew/requirements.txt
+$ pip install -r requirements.txt
 ```
 Create database:
 ```
