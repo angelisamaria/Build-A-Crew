@@ -29,7 +29,7 @@ Clone repository:
 ```
 $ git clone https://github.com/angelisamaria/Build-A-Crew.git
 ```
-Create a virtual environment in the UniMuse/UniMuse folder:
+Create a virtual environment in the BuildACrew folder:
 ```
 $ virtualenv env
 ```
