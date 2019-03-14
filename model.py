@@ -161,6 +161,25 @@ class Location(db.Model):
                         location_name={self.location_name}
                         location_num={self.location_num}>"""
 
+class Todo(db.Model):
+    """Todo Information."""
+
+    __tablename__ = "todo"
+
+    todo_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    task_name = db.Column(db.String(256))
+    task_date = db.Column(db.String(256))
+    task_completion = db.Column(db.Boolean, default=True, nullable=False)
+ 
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return f"""<Todo todo_id={self.todo_id} 
+                        user_id={self.user_id}
+                        task_name={self.task_name}
+                        task_date={self.task_date}
+                        task_completion={self.task_completion}>"""
 
 # Helper functions
 

@@ -1,11 +1,11 @@
 """Utility file to seed User database from Faker data """
 
-import datetime
+from datetime import datetime
 from sqlalchemy import func
 
-from model import User, Project, Schedule, Location, Callsheet, connect_to_db, db
+from model import User, Project, Schedule, Location, Callsheet, Todo, connect_to_db, db
 from server import app
-from faker import Faker as faker
+from faker import Faker
 import random
 import requests
 
@@ -165,6 +165,16 @@ def load_locations():
         db.session.add(new_loc)
         db.session.commit()
 
+def load_todo():
+    """Load todo list into database."""
+
+    autotask = ["Add First Project", "Add First Crewmember"]
+    task_date = datetime.now()
+
+    for i in autotask:
+        new_todo = Todo(task_name=i, task_date=task_date)         
+        db.session.add(new_todo)
+        db.session.commit()
 
 
 if __name__ == "__main__":
@@ -176,3 +186,4 @@ if __name__ == "__main__":
     load_schedules()
     load_callsheets()
     load_locations()
+    load_todo()

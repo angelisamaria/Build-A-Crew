@@ -4,7 +4,7 @@ from flask import (Flask, render_template, redirect, request, flash,
 from flask_debugtoolbar import DebugToolbarExtension
 
 # initialize server
-from model import User, Project, Crew, Callsheet, Schedule, Location, connect_to_db, db
+from model import User, Project, Crew, Callsheet, Schedule, Location, Todo, connect_to_db, db
 
 
 # for darksky API
@@ -146,7 +146,7 @@ def user_dashboard():
 
     # datetime for user view
     now = datetime.now()
-    theday = now.today().weekday()
+    theday = int(now.today().weekday())
     print(theday)
     date = now.day
 
@@ -171,6 +171,8 @@ def user_dashboard():
     today_month = months[month]
 
 
+    todo = Todo.query.get(session['user_id'])
+
     return render_template("/projects/dashboard.html", 
                             user=user, 
                             numprojects=numprojects, 
@@ -183,7 +185,8 @@ def user_dashboard():
                             today_date=today_date,
                             icon=icon,
                             crewed=crewed,
-                            specific_project=specific_project)
+                            specific_project=specific_project,
+                            todo=todo)
 
 @app.route('/projects')
 def user_projects():

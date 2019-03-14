@@ -36,27 +36,31 @@
       
     {% endif %}
     
+    <!-- react to do list -->
     <div class="col">
     <div class="border-10 todo">
       <p><h1>To Do</h1><br>
       <ul>
         {% if numprojects == 0%}
-        <li><a href="/projects"><h5>Add Project</h5></a></li>
+        <li><a href="/projects"><h5>Add First Project</h5></a></li>
         {% else %}
-        <li><h5><s>Add Project</s></h5></li>
+        <li><h5><s>Add First Project</s></h5></li>
         {% endif %}
         <br>
         {% if crewed == 0%}
-        <li><a href="/projects"><h5>Add Crewmember</h5></a></li>
+        <li><a href="/projects"><h5>Add First Crewmember</h5></a></li>
         {% else %}
-        <li><h5><s>Add Crewmember</s></h5></li>
+        <li><h5><s>Add First Crewmember</s></h5></li>
         {% endif %}
         <br>
         <li><h5>[New To-do Item]</h5></li>
+        <li>{{ todo.task_name }}</li>
       </ul>
       </p>
     </div>
   </div>
+
+
 </div>
 </div>
 
