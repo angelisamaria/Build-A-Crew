@@ -206,13 +206,6 @@ def user_projects():
                             crewmembers=crewmembers,
                             numprojects=numprojects)
 
-# @app.route('/projects/<project_id>')
-# def view_project(project_id):
-#     """ View details of a specific project."""
-#     specific_project = Project.query.get(project_id)
-#     crew = Crew.query.filter_by(project_id=project_id)
-
-#     return render_template("/projects/project_id.html", specific_project=specific_project, crew=crew)
 
 @app.route('/newproject', methods = ['GET', 'POST'])
 def new_user_project():
@@ -241,6 +234,7 @@ def new_user_project():
 
         return redirect("/projects")
 
+
 @app.route('/user', methods=['GET', 'POST'])
 def user():
     """ User view of their private profile. """
@@ -259,6 +253,7 @@ def user():
    
     else:
         return render_template("homepage.html")
+
 
 @app.route('/user/<user_id>')
 def profile(user_id):
