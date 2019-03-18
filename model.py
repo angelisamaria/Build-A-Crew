@@ -59,7 +59,7 @@ class Project(db.Model):
                         proj_img={self.proj_img}>"""
 
 class Crew(db.Model):
-    """User Information."""
+    """Crew Information."""
 
     __tablename__ = "crews"
 
@@ -162,7 +162,7 @@ class Location(db.Model):
                         location_num={self.location_num}>"""
 
 class Todo(db.Model):
-    """Todo Information."""
+    """User's To Do List. Two tasks are added upon registration, one to add their first project and another to add their first crewmember."""
 
     __tablename__ = "todo"
 
@@ -170,7 +170,8 @@ class Todo(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     task_name = db.Column(db.String(256))
     task_date = db.Column(db.String(256))
-    task_completion = db.Column(db.Boolean, default=True, nullable=False)
+    task_completion = db.Column(db.Boolean, default=False, nullable=False)
+    task_link = db.Column(db.String(256))
  
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -179,7 +180,8 @@ class Todo(db.Model):
                         user_id={self.user_id}
                         task_name={self.task_name}
                         task_date={self.task_date}
-                        task_completion={self.task_completion}>"""
+                        task_completion={self.task_completion},
+                        task_link={self.task_link}>"""
 
 # Helper functions
 

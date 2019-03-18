@@ -21,6 +21,7 @@
       <div class="border-10 smalldiv">
         <h5># Crewmembers you're working with:</h5><br>
       <h1>{{ crewed }}</h1>
+      <p><a href='/crew'>View All Crew</a></p>
       </div>
     </div>
     <!-- Project Progress with ChartJS -->
@@ -36,25 +37,19 @@
       
     {% endif %}
     
-    <!-- react to do list -->
+    <!-- to do list -->
     <div class="col">
     <div class="border-10 todo">
       <p><h1>To Do</h1><br>
       <ul>
-        {% if numprojects == 0%}
-        <li><a href="/projects"><h5>Add First Project</h5></a></li>
-        {% else %}
-        <li><h5><s>Add First Project</s></h5></li>
-        {% endif %}
-        <br>
-        {% if crewed == 0%}
-        <li><a href="/projects"><h5>Add First Crewmember</h5></a></li>
-        {% else %}
-        <li><h5><s>Add First Crewmember</s></h5></li>
-        {% endif %}
-        <br>
+        {% for i in user_todo %}
+          {% if i.task_completion == true %}
+            <li><s>{{ i.task_name }}</s></li>
+          {% else %}
+            <li><a href="{{ i.task_link}}">{{ i.task_name }}</a></li>
+            {% endif %}
+        {% endfor %}
         <li><h5>[New To-do Item]</h5></li>
-        <li>{{ todo.task_name }}</li>
       </ul>
       </p>
     </div>

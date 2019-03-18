@@ -2,16 +2,28 @@
     {% block title %}View Profile{% endblock %}
 {% block content %}
 
+  
+<!-- NAV BREADCRUMB -->
+<nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{ user.fname }}'s Profile</li>
+        </ol></nav>
+
 <div class="container">
     <div class="row">
         <h1>{{ user.fname }}'s Profile </h1>
     </div>
     <div class="row">
         <ul>
-                <li>First Name: {{ user.fname }}</li><br>
-                <li>Last Name: {{ user.lname }}</li><br>
-                <li>Email: {{ user.email }}</li><br>
-                <li>Zipcode: {{ user.zipcode }}</li><br>
+            <li>Name: {{ user.fname }} {{ user.lname }}</li>
+            <li>Email: {{ user.email }}</li>
+            <li>Zipcode: {{ user.zipcode }}</li>
+        </ul>
+        <ul>
+            <li>Projects you've worked on:</li>
+            <li>Crewmembers you've worked with:</li>
+            <li>Your primary role:</li>
         </ul>
     </div>
 </div>

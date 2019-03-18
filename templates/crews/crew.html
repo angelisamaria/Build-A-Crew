@@ -1,5 +1,5 @@
 {% extends 'base/base2.html' %}
-  {% block title %}{{ specific_project.title }} Crew{% endblock %}
+  {% block title %}Your Crew{% endblock %}
 {% block content %}
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -17,79 +17,28 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-    <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
-    <li class="breadcrumb-item"><a href="/projects/{{ specific_project.project_id }} ">{{ specific_project.title }}</a></li>
-    <li class="breadcrumb-item active" aria-current="page">{{ specific_project.title }} Crew</li>
+    <li class="breadcrumb-item active" aria-current="page">All Crew</li>
   </ol></nav>
 
-
-
-<!-- CHECKBOX RADIO FILTER -->
-<script>
-  $( function() {
-    $( "input" ).checkboxradio();
-  } );
-  </script>
-
-
-<div class="container align-center">
-<!-- JQUERY SORTABLE LISTS -->
-<div class="row align-center">
-
-<!-- Crew List -->
-  <div class="col-4 border-10">
-    <h3>Crew</h3>
-    <ul id="sortable2" class="connectedSortable">
-      <script>
-      var crewmembers = [{user_id: 1, "role": "Director", "fullname": "Lisa Smith"},
-                          {user_id: 2, "role": "Producer", "fullname": "John Smith"}];
-
-     function getCrewMembers() {
-    $.get('/getcrew', (results) => {
-      var allcrew = results;
-      console.log(allcrew);
-        });
-  }
-
-  getCrewMembers();
-
-  allcrew.forEach(function(crewmember) {
-        let user = (`<li class="ui-state-highlight border-6 crewlist user_id${crewmember.user_id}">
-        <img src="https://randomuser.me/api/portraits/thumb/women/66.jpg">
-        <p><b>${crewmember.role}</b><br>${ crewmember.fullname }</p></li>`);
-        $( "#sortable2" ).append( user );
-      });
-
-      
-
-    </script>
-    </ul>
-  </div>
-
-<!-- User List -->
-  <div class="col-4 border-10">
-  <h3>Users</h3>
-  <ul id="sortable1" class="connectedSortable">
-  {% for user in users %}
-    <li id="{{ user.user_id }}" class="ui-state-default border-6 {{ user.role }}"><img src="{{ user.picture }}"><p><b>{{ user.role }}</b><br>{{ user.fname }} {{ user.lname }}</p></li>
-  {% endfor %}
-  </ul>
-</div>
-</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Crew</h1>
+            <p>Crew count: {{ crewcount }}</p>
+            <h5>Projects:</h5>
+            {% for crew in crewed %}
+            <p>Title: {{ crew.title }} (project_id: {{ crew.project_id }})</p>
+            {% endfor %}
+            <p>Crew:</p>
+            {% for c in crews %}
+            <p>{{ c.fullname }}, {{ c.role }} (project_id: {{ c.project_id }}) <a href="/crew/{{ c.project_id }}"> Edit Crewmember</a></p>
+            {% endfor %}
+            <p>{{ crews }}</p>
+        </div>
+    </div>
 </div>
 
 
-
-
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-$( function() {
-  $( "#sortable1, #sortable2" ).sortable({
-    connectWith: ".connectedSortable"
-  }).disableSelection();
-} );
-</script>
 
 
 {% endblock %}

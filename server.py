@@ -85,7 +85,37 @@ def registration_form():
         # session['user_id'] = request.form['user_id']
         session['user_id'] = new_user.user_id
 
+        # add preset todo items for user
+        user_id = session['user_id']
+
+        # datetime for todo date
+        now = datetime.now()
+
+        anp = "Add First Project"
+        anc = "Add First Crewmember"
+        phref = "/projects"
+        chref = "/crew"
+
+        add_new_project = Todo(user_id=new_user.user_id, 
+                                task_name=anp, 
+                                task_date=now, 
+                                task_completion=False,
+                                task_link=phref)
+        add_new_crewmember = Todo(user_id=new_user.user_id, 
+                                task_name=anc, 
+                                task_date=now, 
+                                task_completion=False,
+                                task_link=chref)
+                                
+        db.session.add(add_new_project)
+        db.session.commit()
+        db.session.add(add_new_crewmember)
+        db.session.commit()
+
         return redirect('/dashboard')
+
+
+
 
 @app.route('/getusers', methods=['GET'])
 def view_users():
@@ -137,6 +167,9 @@ def log_out():
 def user_dashboard():
     """User's Dashboard Page."""
 
+    
+   
+
     # squalchemy from Users Projects, and Crews tables
     user = User.query.get(session['user_id'])
     user_projects = Project.query.filter_by(user_id=session['user_id'])
@@ -170,8 +203,9 @@ def user_dashboard():
     today_day = days[theday]
     today_month = months[month]
 
-
-    todo = Todo.query.get(session['user_id'])
+    user_todo = Todo.query.filter_by(user_id=session['user_id']).all()
+    # if projects > 0 then make todo 'add new project' as completed
+    # if crew > 0 then make todo 'add new crewmember' as completed
 
     return render_template("/projects/dashboard.html", 
                             user=user, 
@@ -186,7 +220,7 @@ def user_dashboard():
                             icon=icon,
                             crewed=crewed,
                             specific_project=specific_project,
-                            todo=todo)
+                            user_todo=user_todo)
 
 @app.route('/projects')
 def user_projects():
@@ -249,7 +283,6 @@ def user():
             user.lname = request.form['lname']
             user.email  = request.form['email']
             user.pw   = request.form['pw']
-
             db.session.commit()
 
         return render_template("/users/user.html", user=user)
@@ -341,16 +374,27 @@ def view_contacts():
     return render_template("users/contacts.html", users=users, user_one=user_one)
 
 
+@app.route('/crew')
+def all_crew():
+    """ All Crew Page"""
+
+    crewcount = Project.query.filter_by(user_id=session['user_id']).join(Crew, Crew.project_id == Project.project_id).count()
+    crewed = Project.query.filter_by(user_id=session['user_id']).join(Crew, Crew.project_id == Project.project_id)
+    crews = Crew.query.filter_by(user_id=session['user_id']).join(Project, Project.project_id == Crew.crew_id).all()
+
+    return render_template("/crews/crew.html", 
+                                crewcount=crewcount, crewed=crewed, crews=crews)
+
 @app.route('/crew/<project_id>')
 def project_crew(project_id):
-    """ Crew Page"""
+    """ Project Crew Page"""
     
     specific_project = Project.query.get(project_id)
     user_projects = Project.query.filter_by(user_id=session['user_id'])
     crew = Crew.query.join(Project, Crew.project_id==project_id).join(User, Project.user_id==session['user_id']).all()
 
     users = User.query.all()
-    return render_template("/crews/crew.html", 
+    return render_template("/crews/projectcrew.html", 
                                 specific_project=specific_project, user_projects=user_projects, 
                                 crew=crew, users=users)
 
@@ -358,7 +402,7 @@ def project_crew(project_id):
 @app.route('/getcrew', methods=['GET'])
 def view_crew():
     """ Crew JSON"""
-
+    
     crew = Crew.query.all()
 
     projectCrew = {}
