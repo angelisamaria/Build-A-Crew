@@ -299,10 +299,16 @@ def profile(user_id):
     
     return render_template("/users/publicprofile.html", specific_user=specific_user)
 
+@app.route('/callsheets')
+def all_callsheets():
+    """ All of the users callsheets."""
+
+    
+    return render_template("/projects/callsheets.html")
 
 @app.route('/callsheets/<project_id>',  methods=['GET', 'POST'])
-def all_callsheets(project_id):
-    """ User's contact list."""
+def specific_callsheets(project_id):
+    """ User's callsheet for a specific project."""
 
     if request.method == 'POST':
         project_id = project_id
