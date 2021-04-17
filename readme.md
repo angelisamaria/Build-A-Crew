@@ -31,7 +31,7 @@ $ git clone https://github.com/angelisamaria/Build-A-Crew.git
 ```
 Create a virtual environment in the BuildACrew folder:
 ```
-$ virtualenv env
+$ python3 -m venv env/
 ```
 Activate virtual environment:
 ```
