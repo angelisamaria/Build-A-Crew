@@ -39,13 +39,13 @@ Install dependencies:
 ```
 $ pip install -r requirements.txt
 ```
-Create database:
+Confirm you have PostgreSQL installed locally, otherwise follow [these steps](https://www.postgresql.org/download/). Once you've confirmed PostgreSQL is installed, create a new database:
 ```
 $ createdb buildacrew
 ```
 Build database tables:
 ```
-$ python3 models.py
+$ python3 model.py
 ```
 Fill database with seed file:
 ```
