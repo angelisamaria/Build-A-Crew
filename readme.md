@@ -78,3 +78,6 @@ $ python3 server.py
 * Exporting callsheets as PDF
 * Calendar invites
 * Google Docs integration
+
+# To Do
+* The form input needs better error reporting when the user causes a TypeError. For example, when attempting to create a new account, if you put a string of characters instead of integers in the `Zip Code` field, it returns an Internal Server Error (500), whereas an error message should appear for the user to sign up successfully.
