@@ -78,4 +78,3 @@ $ python3 server.py
 * Upload option for profile photos or provide an option with default images
 * Exporting callsheets as PDF
 * Google Docs integration: Calendar, Docs and Sheets
-* Better error reporting for the `registration_form` function as it currently results in a TypeError
