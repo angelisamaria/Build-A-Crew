@@ -7,8 +7,8 @@ Build a crew is a place for Video Producers to manage their projects, crewmember
 
 * [Tech Stack](#tech-stack)
 * [Setup and Installation](#setup)
-* [Usage](#usage)
-* [Version 2.0](#version)
+* [Navigate and Interact with the Application](#usage)
+* [Next Steps](#next)
 
 ## <a name="tech-stack"></a>Tech Stack
 
@@ -55,7 +55,7 @@ Run the app via command line:
 ```
 $ python3 server.py
 ```
-## <a name="usage"></a> Usage
+## <a name="usage"></a> Navigate and Interact with the Application
 
 ### Step 1: Create profile
 * Register via landing page
@@ -73,11 +73,9 @@ $ python3 server.py
 * View weather with DarkSky API based on your location
 * View Chart.js data visualizing your projects & crew
 
-## <a name="version"></a> Next Steps - Version 2.0
+## <a name="next"></a> Next Steps
 * User-to-user interaction
+* Upload option for profile photos or provide an option with default images
 * Exporting callsheets as PDF
-* Calendar invites
-* Google Docs integration
-
-# To Do
-* The form input needs better error reporting when the user causes a TypeError. For example, when attempting to create a new account, if you put a string of characters instead of integers in the `Zip Code` field, it returns an Internal Server Error (500), whereas an error message should appear for the user to sign up successfully.
+* Google Docs integration: Calendar, Docs and Sheets
+* Better error reporting for the `registration_form` function as it currently results in a TypeError
