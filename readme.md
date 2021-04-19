@@ -13,7 +13,7 @@ Build a crew is a place for Video Producers to manage their projects, crewmember
 ## <a name="tech-stack"></a>Tech Stack
 
 * __Frontend:__ HTML5, CSS3, JavaScript, Bootstrap, Jinja, jQuery
-* __Backend:__ Python, Flask, PostgreSQL, SQLAlchemy
+* __Backend:__ Python, Flask, PostgreSQL, SQLAlchemy, [Faker](https://faker.readthedocs.io/en/master/) to seed database with mock data
 * __API:__ DarkSky
 
 
