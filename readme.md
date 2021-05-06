@@ -35,6 +35,7 @@ Activate virtual environment:
 ```
 $ source env/bin/activate
 ```
+(to deactivate the virtual environment, simply type `deactivate` in your shell)
 Install dependencies:
 ```
 $ pip install -r requirements.txt
