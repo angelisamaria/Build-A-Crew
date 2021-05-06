@@ -1,0 +1,41 @@
+{
+  "name": "build-a-crew",
+  "version": "1.0.0",
+  "description": "build your crew",
+  "main": "index.js",
+  "dependencies": {
+    "apollo-server-express": "^2.24.0",
+    "express": "^4.17.1",
+    "graphql": "^15.5.0",
+    "graphql-iso-date": "^3.6.1",
+    "graphql-tag": "^2.12.4",
+    "graphql-tools": "^7.0.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.14.0",
+    "@babel/node": "^7.13.13",
+    "@babel/preset-env": "^7.14.1"
+  },
+  "scripts": {
+    "test": "test",
+    "serve": "babel-node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angelisamaria/Build-A-Crew.git"
+  },
+  "keywords": [
+    "build",
+    "crew",
+    "react",
+    "babel",
+    "graphql"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/angelisamaria/Build-A-Crew/issues"
+  },
+  "homepage": "https://github.com/angelisamaria/Build-A-Crew#readme"
+}
