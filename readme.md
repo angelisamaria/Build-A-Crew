@@ -23,7 +23,7 @@ Please be sure to have __Python 3.6__ and __PostgreSQL__ downloaded before you c
 
 To run Build a Crew on your local computer, please follow the below steps:
 
-Clone repository:
+Clone repository (HTTPS/SSH/CLI):
 ```
 $ git clone https://github.com/angelisamaria/Build-A-Crew.git
 ```
